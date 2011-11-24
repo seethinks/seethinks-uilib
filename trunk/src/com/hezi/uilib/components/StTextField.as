@@ -43,9 +43,9 @@ package com.hezi.uilib.components
 			addChild(_txt);
 			//_txt.mouseEnabled = false;
 			//_backGroundSprite.mouseChildren = false;
+			//this.mouseEnabled = false;
+			//this.mouseChildren = false;
 			this.mouseEnabled = false;
-			//_txt.mouseChildren = false;
-			
 			// *****************************************        初始化绘制        *********************
 			var tempBmp:Bitmap;
 			var tempSpr:Sprite;
@@ -325,11 +325,9 @@ package com.hezi.uilib.components
 				_txt.type = _styleMap[SkinStyle.TEXTFIELD_TEXT_TYPE];
 				if (_txt.type == TextFieldType.DYNAMIC)
 				{
-					_txt.type = TextFieldType.DYNAMIC;
 					_txt.selectable = false;
 				}else if (_txt.type == TextFieldType.INPUT)
 				{
-					_txt.type = TextFieldType.INPUT;
 					_txt.selectable = true;
 				}
 			}

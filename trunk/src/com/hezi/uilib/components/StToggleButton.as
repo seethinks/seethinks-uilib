@@ -16,7 +16,7 @@ package com.hezi.uilib.components
 	import flash.events.Event;
 	
 	/**
-	* 具体按钮类
+	* 具体切换按钮类
 	* @author seethinks@gmail.com
 	*/
 	public class StToggleButton extends AbstractComponentBase
@@ -30,10 +30,9 @@ package com.hezi.uilib.components
 		private var _label:StTextField;
 		private var _labelBmp:Bitmap;
 		private var _styleMap:Object;
-		//private var _matrix:Matrix;
 		private var _curStatues:String;
-		public static const TOGGLEBUTTON_STATUS_DEFAULT:String = "checkbox_status_default";
-		public static const TOGGLEBUTTON_STATUS_SELECTED:String = "checkbox_status_selected";
+		public static const TOGGLEBUTTON_STATUS_DEFAULT:String = "toggleButton_status_default";
+		public static const TOGGLEBUTTON_STATUS_SELECTED:String = "toggleButton_status_selected";
 		/**
 		 * 具体按钮类构造函数
 		 */
@@ -46,7 +45,7 @@ package com.hezi.uilib.components
 		}
 		
 		/**
-		 * 初始化Button显示对象和绘制，绘制元素建立map
+		 * 初始化ToggleButton显示对象和绘制，绘制元素建立map
 		 */
 		override public function init():void 
 		{
