@@ -456,7 +456,6 @@ package com.hezi.uilib.components
 				_newPosTarget = (_haveVisibleModeHeigth - _trackHeight) * _posPercent * 0.01;
 			}
 			_target.y = this.y - _newPosTarget; 
-			//trace("_target.y:"+_target.y);
 		}
 		
 		private function stopDragThumb(evt:MouseEvent):void

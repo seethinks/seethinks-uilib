@@ -52,7 +52,7 @@ package com.hezi.uilib.skin
 		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "RadioSelectedDisable")] private var RadioSelectedDisable:Class;
 		
 		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "TextFieldBg")] public static var TextFieldBg:Class;
-		
+
 		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "ToggleButtonDefault")] private var ToggleButtonDefault:Class;
 		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "ToggleButtonOver")] private var ToggleButtonOver:Class;
 		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "ToggleButtonPress")] private var ToggleButtonPress:Class;
@@ -64,7 +64,7 @@ package com.hezi.uilib.skin
 			SkinObj[SkinStyle.BUTTON_ROLLOVER] = new ButtonOver();
 			SkinObj[SkinStyle.BUTTON_PRESS] = new ButtonPress();
 			SkinObj[SkinStyle.BUTTON_DISABLE] = new ButtonDisable();
-			SkinObj[SkinStyle.BUTTON_LABEL] = "Normal Button";
+			SkinObj[SkinStyle.BUTTON_LABEL] = "Alpha Version";
 			
 			SkinObj[SkinStyle.PANEL_DEFAULT] = new PanelDefault();
 			SkinObj[SkinStyle.PANEL_DISABLE] = new PanelDefault();

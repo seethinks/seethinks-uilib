@@ -234,6 +234,7 @@ package com.hezi.uilib.components
 						cellSpr.name = String(i);
 						cellSpr.addChild(_txt);
 					}
+					trace(cellSpr);
 					cellSpr.buttonMode = true;
 					cellSpr.addEventListener(MouseEvent.CLICK, clickCellHandler,false,0,true);
 					cellSpr.addEventListener(MouseEvent.MOUSE_OVER, overCellHandler,false,0,true);
