@@ -46,8 +46,8 @@ package com.hezi.uilib.components
 		private var _curObj:Object;
 		
 		/**
-		 * @param	skinObj      皮肤对象
 		 * @param	dataList     植入数据
+		 * @param	skinObj      皮肤对象
 		 * @param	x            
 		 * @param	y
 		 * @param	cellSpaceX   列表容器的x偏移值
