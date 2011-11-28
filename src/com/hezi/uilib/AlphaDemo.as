@@ -12,6 +12,7 @@ package com.hezi.uilib
 	import com.hezi.uilib.components.StScrollBar;
 	import com.hezi.uilib.components.StSlider;
 	import com.hezi.uilib.components.StTextField;
+	import com.hezi.uilib.components.StThumbnail;
 	import com.hezi.uilib.components.StToggleButton;
 	import com.hezi.uilib.components.StToolTip;
 	import com.hezi.uilib.event.StUiEvent;
@@ -41,7 +42,10 @@ package com.hezi.uilib
 		private var ttip:StToolTip;
 		private var _panel:StPanel;
 		private var _sttext:StTextField;
-		private var _radioMsg:Array = ["raido button 1","raido button 2","raido button 3"];
+		private var _radioMsg:Array = ["raido button 1", "raido button 2", "raido button 3"];
+		
+		private var sitObj:ListDataModel;
+		private var numObj:ListDataModel;
 		
 		public function AlphaDemo() 
 		{
@@ -52,9 +56,10 @@ package com.hezi.uilib
 			var _button:StButton = new StButton(null,10,10);
 			addChild(_button);
 			
-			var _tbutton:StToggleButton = new StToggleButton(null,10,50);
+			var _tbutton:StToggleButton = new StToggleButton(null, 10, 50);
+			_tbutton.addEventListener(MouseEvent.CLICK, testListDataHandler);
 			addChild(_tbutton);
-
+			
 			_panel = new StPanel(150, 10);
 			_panel.setStyle(SkinStyle.PANEL_DEFAULT, new carImg());
 			addChild(_panel);
@@ -112,7 +117,8 @@ package com.hezi.uilib
 			
 			ttip = StToolTip.getInstance(null);
 			this.addChild(ttip);
-			
+
+			sitObj = new ListDataModel();
 			var arr:Array = [ { label:"www.google.com", value: { str:"ssss", age:12, msg:"sljflsdfjlsdfjdssfddf" }},
 							  { label:"www.baidu.com", value: { str:"ssss", age:12, msg:"sljflsdfjlsdfjdssfddf" }},
 							  { label:"www.bing.com", value: { str:"ssss", age:12, msg:"sljflsdfjlsdfjdssfddf" }},
@@ -121,7 +127,7 @@ package com.hezi.uilib
 							  { label:"www.21cn.com", value: { str:"ssss", age:12, msg:"sljflsdfjlsdfjdssfddf" }},
 							  { label:"www.test.com", value: { str:"ssss", age:12, msg:"sljflsdfjlsdfjdssfddf" }}
 							];
-			
+			sitObj.ListDataArr = arr;
 			var _list:StList = new StList(arr, null, 550, 100);
 			_list.addEventListener(StUiEvent.STLIST_CLICK_CELL, showListValue);
 			addChild(_list);
@@ -137,6 +143,40 @@ package com.hezi.uilib
 			
 			var bb:StBubbleBox = new StBubbleBox(null,20,"BubbleBox is me",new Point(150,500));
 			addChild(bb);
+			
+			var skinThumbnail:Object = { };
+			skinThumbnail[SkinStyle.BUTTON_DEFAULT];
+			
+			
+			var _stThumbnail:StThumbnail = new StThumbnail(arr,skinThumbnail,550,400);
+			addChild(_stThumbnail);
+			
+			/**
+			 * 测试ListData
+			 */
+			var testListData:Array = [ { label:"111111111111", value: { str:"ssss", age:12, msg:"sljflsdfjlsdfjdssfddf" }},
+							  { label:"2222222222", value: { str:"ssss", age:12, msg:"sljflsdfjlsdfjdssfddf" }},
+							  { label:"33333333", value: { str:"ssss", age:12, msg:"sljflsdfjlsdfjdssfddf" }},
+							];
+							
+			_getPhpData = new ListDataBroadcast();
+			numObj = new ListDataModel();
+			numObj.ListDataArr = testListData;
+			_getPhpData.addObserver(_combox);
+			_getPhpData.addObserver(_list);
+
+		}
+		
+		private function testListDataHandler(e:MouseEvent):void 
+		{
+			var testToggleButton:StToggleButton = e.currentTarget as StToggleButton;
+			if (testToggleButton.getStatus())
+			{
+				_getPhpData.setDataList(numObj);
+			}else
+			{
+				_getPhpData.setDataList(sitObj);
+			}
 		}
 		
 		private function showListValue(e:StUiEvent):void 

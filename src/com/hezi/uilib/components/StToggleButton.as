@@ -439,6 +439,7 @@ package com.hezi.uilib.components
 				_defaultSpr.visible = true;
 				_pressSpr.visible = false;
 			}
+			dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 		}
 		
 		private function onOut(e:MouseEvent):void 

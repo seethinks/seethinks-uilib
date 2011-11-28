@@ -1,7 +1,8 @@
 package com.hezi.uilib.components 
 {
+	import com.hezi.uilib.Error.UiLibError;
 	/**
-	 * 模板组件
+	 * 缩略图组件
 	 * @author seethinks@gmail.com
 	 */
 	public class StThumbnail extends AbstractComponentBase 
@@ -23,13 +24,14 @@ package com.hezi.uilib.components
 		 * @param	x
 		 * @param	y
 		 */
-		public function StThumbnail(dataList:Array,skinObj:Object=null,x:Number = 0, y:Number = 0,cellSpaceX:Number = 4, cellSpaceY:Number = 4) 
+		public function StThumbnail(dataList:Array, skinObj:Object = null, x:Number = 0, y:Number = 0, cellSpaceX:Number = 4, cellSpaceY:Number = 4, showTotalPage:int = 4 ) 
 		{
 			if (!dataList) throw new UiLibError(UiLibError.DATA_IS_NOTNULL, StThumbnail, "缩略图数据填充不能为null");
 			_thumbNailDataList = dataList;
 			_skinObj = skinObj;
 			_cellSpaceX = cellSpaceX;
 			_cellSpaceY = cellSpaceY;
+			_showTotalPage = showTotalPage;
 			setLocation(x, y);
 			init();
 		}
@@ -37,8 +39,8 @@ package com.hezi.uilib.components
 		{
 			_styleMap = new Object();
 			_curPage = 1;
-			_showTotalPage=1;
-			_totalPage=1;
+			_totalPage = Math.ceil(_thumbNailDataList.length / _showTotalPage);
+			trace(_totalPage);
 		}
 		
 		override public function setLocation(x:Number, y:Number):void 

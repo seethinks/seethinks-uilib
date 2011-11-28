@@ -4,7 +4,6 @@ package com.hezi.uilib.components
 	import com.hezi.uilib.core.IbListDataModel;
 	import com.hezi.uilib.Error.UiLibError;
 	import com.hezi.uilib.event.StUiEvent;
-	import com.hezi.uilib.model.ListDataBroadcast;
 	import com.hezi.uilib.model.ListDataModel;
 	import com.hezi.uilib.skin.SkinStyle;
 	import com.hezi.uilib.util.GC;
@@ -234,7 +233,6 @@ package com.hezi.uilib.components
 						cellSpr.name = String(i);
 						cellSpr.addChild(_txt);
 					}
-					trace(cellSpr);
 					cellSpr.buttonMode = true;
 					cellSpr.addEventListener(MouseEvent.CLICK, clickCellHandler,false,0,true);
 					cellSpr.addEventListener(MouseEvent.MOUSE_OVER, overCellHandler,false,0,true);
@@ -272,7 +270,7 @@ package com.hezi.uilib.components
 		public function updateDataDraw(obj:IbListDataModel = null):void
 		{
 			var _obj:ListDataModel = obj as ListDataModel;
-			_cellDataList.length = 0;
+			//_cellDataList.length = 0;
 			_cellDataList = _obj.ListDataArr;
 			_updataDraw = true;
 			redraw();
