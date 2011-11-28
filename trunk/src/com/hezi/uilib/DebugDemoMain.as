@@ -107,7 +107,6 @@ package com.hezi.uilib
 		private function createList():void 
 		{
 			var _list:StList = new StList([],10, 50);
-			//trace(_list.x);
 			addChild(_list);
 		}
 		

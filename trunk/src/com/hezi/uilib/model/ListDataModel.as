@@ -20,7 +20,7 @@ package com.hezi.uilib.model
 		
 		public function set ListDataArr(arr:Array):void
 		{
-			_listDataArr = arr;
+			_listDataArr = arr; 
 		}
 		/**
 		 * 填充列表数据
