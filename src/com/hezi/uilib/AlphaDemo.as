@@ -141,14 +141,28 @@ package com.hezi.uilib
 			var _combox:StComboBox = new StComboBox(arr,skinComboBox,550,340,4,14,4);
 			addChild(_combox);
 			
-			var bb:StBubbleBox = new StBubbleBox(null,20,"BubbleBox is me",new Point(150,500));
+			var bb:StBubbleBox = new StBubbleBox(null,20,"BubbleBox is me",new Point(60,500));
 			addChild(bb);
 			
-			var skinThumbnail:Object = { };
-			skinThumbnail[SkinStyle.BUTTON_DEFAULT];
 			
+			var _thumbnailSkin:Object = { };
+			_thumbnailSkin[SkinStyle.BUTTON_LABEL] = "";
+			_thumbnailSkin[SkinStyle.BUTTON_DEFAULT] = new SkinAlpha.ThumbnailPrevBtn;
+			_thumbnailSkin[SkinStyle.BUTTON_PRESS] = new SkinAlpha.ThumbnailPrevBtn;
+			_thumbnailSkin[SkinStyle.BUTTON_ROLLOVER] = new SkinAlpha.ThumbnailPrevBtn;
+			_thumbnailSkin[SkinStyle.BUTTON_DISABLE] = new SkinAlpha.ThumbnailPrevBtn;
+			var prevBtn:StButton = new StButton(_thumbnailSkin);
 			
-			var _stThumbnail:StThumbnail = new StThumbnail(arr,skinThumbnail,550,400);
+			_thumbnailSkin[SkinStyle.BUTTON_LABEL] = "";
+			_thumbnailSkin[SkinStyle.BUTTON_DEFAULT] = new SkinAlpha.ThumbnailNextBtn;
+			_thumbnailSkin[SkinStyle.BUTTON_PRESS] = new SkinAlpha.ThumbnailNextBtn;
+			_thumbnailSkin[SkinStyle.BUTTON_ROLLOVER] = new SkinAlpha.ThumbnailNextBtn;
+			_thumbnailSkin[SkinStyle.BUTTON_DISABLE] = new SkinAlpha.ThumbnailNextBtn;
+			var nextBtn:StButton = new StButton(_thumbnailSkin);
+			
+			_thumbnailSkin[SkinStyle.THUMBNAIL_PREVBTN] = prevBtn;
+			_thumbnailSkin[SkinStyle.THUMBNAIL_NEXTBTN] = nextBtn;
+			var _stThumbnail:StThumbnail = new StThumbnail(arr,_thumbnailSkin,150,460);
 			addChild(_stThumbnail);
 			
 			/**

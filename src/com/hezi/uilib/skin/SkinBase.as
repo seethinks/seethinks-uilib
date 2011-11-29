@@ -60,6 +60,14 @@ package com.hezi.uilib.skin
 			_skinObj[SkinStyle.RADIO_SELECTED] = null;
 			_skinObj[SkinStyle.RADIO_DEFAULT_DISABLE] = null;
 			_skinObj[SkinStyle.RADIO_SELECTED_DISABLE] = null;
+			
+			SkinObj[SkinStyle.TOGGLEBUTTON_DEFAULT] = null;
+			SkinObj[SkinStyle.TOGGLEBUTTON_ROLLOVER] = null;
+			SkinObj[SkinStyle.TOGGLEBUTTON_PRESS] = null
+			SkinObj[SkinStyle.TOGGLEBUTTON_DISABLE] = null
+			SkinObj[SkinStyle.TOGGLEBUTTON_LABEL] = null;
+			
+			SkinObj[SkinStyle.THUMBNAIL_BG] = null;
 	}
 		
 		public function get SkinObj():Object

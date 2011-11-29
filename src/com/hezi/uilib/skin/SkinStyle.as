@@ -113,6 +113,13 @@ package com.hezi.uilib.skin
 		public static const TOGGLEBUTTON_PRESS:String = "ToggleButton.Press";
 		public static const TOGGLEBUTTON_DISABLE:String = "ToggleButton.Disable";
 		public static const TOGGLEBUTTON_LABEL:String = "ToggleButton.Label";
+		
+		/**
+		 * Thumbnail皮肤设定
+		 */
+		public static const THUMBNAIL_BG:String = "Thumbnail.Bg";
+		public static const THUMBNAIL_PREVBTN:String = "Thumbnail.PrevBtn";
+		public static const THUMBNAIL_NEXTBTN:String = "Thumbnail.NextBtn";
 	
 		/**
 		 * 皮肤基类
