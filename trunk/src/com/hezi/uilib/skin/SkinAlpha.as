@@ -58,6 +58,9 @@ package com.hezi.uilib.skin
 		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "ToggleButtonPress")] private var ToggleButtonPress:Class;
 		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "ToggleButtonDisable")] private var ToggleButtonDisable:Class;
 		
+		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "ThumbnailBg")] private var ThumbnailBg:Class;
+		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "ThumbnailPrevBtn")] public static var ThumbnailPrevBtn:Class;
+		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "ThumbnailNextBtn")] public static var ThumbnailNextBtn:Class;
 		public function SkinAlpha() 
 		{
 			SkinObj[SkinStyle.BUTTON_DEFAULT] = new ButtonDefault();
@@ -117,6 +120,10 @@ package com.hezi.uilib.skin
 			SkinObj[SkinStyle.TOGGLEBUTTON_PRESS] = new ToggleButtonPress();
 			SkinObj[SkinStyle.TOGGLEBUTTON_DISABLE] = new ToggleButtonDisable();
 			SkinObj[SkinStyle.TOGGLEBUTTON_LABEL] = "Toggle Button";
+			
+			SkinObj[SkinStyle.THUMBNAIL_BG] = new ThumbnailBg(); 
+			SkinObj[SkinStyle.THUMBNAIL_PREVBTN] = null; 
+			SkinObj[SkinStyle.THUMBNAIL_NEXTBTN] = null; 
 		}
 		
 	}
