@@ -233,11 +233,25 @@ package com.hezi.uilib.components
 			}
 			
 			// label
-			if (SkinStyle.Skin.SkinObj[SkinStyle.TOGGLEBUTTON_LABEL] is String)
+			if (_skinObj)
 			{
-				_labelTxt = SkinStyle.Skin.SkinObj[SkinStyle.TOGGLEBUTTON_LABEL];
+				if (_skinObj[SkinStyle.TOGGLEBUTTON_LABEL]=="" || !_skinObj[SkinStyle.TOGGLEBUTTON_LABEL])
+				{
+					tempObj = SkinStyle.Skin.SkinObj[SkinStyle.TOGGLEBUTTON_LABEL];
+				}else
+				{
+					tempObj = _skinObj[SkinStyle.TOGGLEBUTTON_LABEL];
+				}
+			}else
+			{
+				tempObj = SkinStyle.Skin.SkinObj[SkinStyle.TOGGLEBUTTON_LABEL];
+			}
+			
+			if (tempObj is String)
+			{
+				_labelTxt = tempObj;
 				//_label.text = _labelTxt;
-				_styleMap[SkinStyle.TOGGLEBUTTON_LABEL] = _labelTxt;
+				_styleMap[SkinStyle.TOGGLEBUTTON_LABEL] = tempObj;
 			}else
 			{
 				throw new UiLibError(UiLibError.VALUE_TYPEERROR_MSG, StToggleButton, "参数应该为string类型");
