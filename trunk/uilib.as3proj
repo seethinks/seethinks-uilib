@@ -11,12 +11,13 @@
     <movie version="10" />
     <movie minorVersion="0" />
     <movie platform="Flash Player" />
-    <movie background="#102121" />
+    <movie background="#FFFF00" />
     <movie preferredSDK="D:\Program Files\Adobe\Adobe Flash Builder 4.5\sdks\4.5.1" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
+    <class path="E:\resouce\TweenMaxAS3" />
   </classpaths>
   <!-- Build options -->
   <build>
