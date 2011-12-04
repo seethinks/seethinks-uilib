@@ -15,7 +15,7 @@ package com.hezi.uilib.skin
 			_skinObj[SkinStyle.BUTTON_ROLLOVER] = null;
 			_skinObj[SkinStyle.BUTTON_PRESS] = null;
 			_skinObj[SkinStyle.BUTTON_DISABLE] = null;
-			_skinObj[SkinStyle.BUTTON_LABEL] = null;
+			_skinObj[SkinStyle.BUTTON_LABEL] = "";
 			
 			_skinObj[SkinStyle.PANEL_DEFAULT] = null;
 			
@@ -34,7 +34,7 @@ package com.hezi.uilib.skin
 			_skinObj[SkinStyle.COMBOBOX_TITLE_BUTTON_CLICK] = null;
 			
 			_skinObj[SkinStyle.TEXTFIELD_Bg] = null;
-			_skinObj[SkinStyle.TEXTFIELD_TEXT_TYPE] = null;
+			_skinObj[SkinStyle.TEXTFIELD_TEXT_TYPE] = "dynamic";
 			_skinObj[SkinStyle.TEXTFIELD_TEXT_SIZE] = 14;
 			_skinObj[SkinStyle.TEXTFIELD_TEXT_COLOR] = 0x000000;
 			_skinObj[SkinStyle.TEXTFIELD_TEXT_ALIGN] = "center";
@@ -65,9 +65,13 @@ package com.hezi.uilib.skin
 			SkinObj[SkinStyle.TOGGLEBUTTON_ROLLOVER] = null;
 			SkinObj[SkinStyle.TOGGLEBUTTON_PRESS] = null
 			SkinObj[SkinStyle.TOGGLEBUTTON_DISABLE] = null
-			SkinObj[SkinStyle.TOGGLEBUTTON_LABEL] = null;
+			SkinObj[SkinStyle.TOGGLEBUTTON_LABEL] = "";
 			
 			SkinObj[SkinStyle.THUMBNAIL_BG] = null;
+			SkinObj[SkinStyle.THUMBNAIL_PREVBTN] = null;
+			SkinObj[SkinStyle.THUMBNAIL_PREVBTNPOSI] = null;
+			SkinObj[SkinStyle.THUMBNAIL_NEXTBTN] = null;
+			SkinObj[SkinStyle.THUMBNAIL_NEXTBTNPOSI] = null;
 	}
 		
 		public function get SkinObj():Object

@@ -427,29 +427,41 @@ package com.hezi.uilib.components
 
 		private function onUP(e:MouseEvent):void 
 		{
-			_defaultSpr.visible = true;
-			_pressSpr.visible = false;
-			_rollOverSpr.visible = true;
+			if (this.enabled)
+			{
+				_defaultSpr.visible = false;
+				_pressSpr.visible = false;
+				_rollOverSpr.visible = true;
+				this.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+			}
 		}
 		
 		private function onDown(e:MouseEvent):void 
 		{
-			_defaultSpr.visible = false;
-			_pressSpr.visible = true;
-			_rollOverSpr.visible = false;
-			this.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+			if (this.enabled)
+			{
+				_defaultSpr.visible = false;
+				_pressSpr.visible = true;
+				_rollOverSpr.visible = false;
+			}
 		}
 		
 		private function onOut(e:MouseEvent):void 
 		{
-			_defaultSpr.visible = true;
-			_rollOverSpr.visible = false;
+			if (this.enabled)
+			{
+				_defaultSpr.visible = true;
+				_rollOverSpr.visible = false;
+			}
 		}
 		
 		private function onOver(e:MouseEvent):void 
 		{
-			_defaultSpr.visible = false;
-			_rollOverSpr.visible = true;
+			if (this.enabled)
+			{
+				_defaultSpr.visible = false;
+				_rollOverSpr.visible = true;
+			}
 		}
 		
 		/**
@@ -462,14 +474,18 @@ package com.hezi.uilib.components
 			{
 				this.buttonMode = false;
 				_defaultSpr.visible = false;
-				_disableSpr.visible = true;
+				_rollOverSpr.visible = false;
+				_pressSpr.visible = false;
 				this.enabled = false;
+				_disableSpr.visible = true;
 			}else
 			{
 				this.buttonMode = true;
-				_defaultSpr.visible = true;
 				_disableSpr.visible = false;
+				_rollOverSpr.visible = false;
+				_pressSpr.visible = false;
 				this.enabled = true;
+				_defaultSpr.visible = true;
 			}
 		}
 		

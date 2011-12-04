@@ -39,6 +39,7 @@ package com.hezi.uilib.components
 		private var _titleButtonClick:Sprite;
 		private var _skinObj:Object;
 		private var _updataDraw:Boolean;
+		private var _defaultTitleShow:Boolean;
 		
 		/**
 		 * 当前选择变量值
@@ -53,16 +54,18 @@ package com.hezi.uilib.components
 		 * @param	cellSpaceX   列表容器的x偏移值
 		 * @param	cellSpaceY   列表容器的y偏移值
 		 * @param	targetDecal	  滚动条离目标间距 
+		 * @param   defaultTitleShow    是否默认显示第一条记录
 		 */
-		public function StComboBox(dataList:Array,skinObj:Object=null,x:Number = 0, y:Number = 0,cellSpaceX:Number = 4, cellSpaceY:Number = 4, targetDecal:Number =5) 
+		public function StComboBox(dataList:Array, skinObj:Object = null, x:Number = 0, y:Number = 0, cellSpaceX:Number = 4, cellSpaceY:Number = 4, targetDecal:Number = 5, defaultTitleShow:Boolean = false ) 
 		{
 			if (!dataList) throw new UiLibError(UiLibError.DATA_IS_NOTNULL, StComboBox, "列表数据填充不能为null");
-
+			
 			_stListdataList = dataList;
 			_skinObj = skinObj;
 			_cellSpaceX = cellSpaceX;
 			_cellSpaceY = cellSpaceY;
 			_targetDecal = targetDecal;
+			_defaultTitleShow = defaultTitleShow;
 			setLocation(x, y);
 			init();
 		}
@@ -204,15 +207,26 @@ package com.hezi.uilib.components
 			_stTextField = new StTextField(_skinObj, 2, 2);
 			_stTextField.width = _backGroundSprite.width;
 			_backGroundSprite.height = _backGroundSprite.height;
-			_stTextField.setText("select...");
+			_stTextField.setText("");
+			_stTextField.mouseEnabled = false;
+			_stTextField.enabled = false;
 			addChild(_stTextField);
 			_stList = new StList(_stListdataList,_skinObj,0,0,_cellSpaceX,_cellSpaceY,_targetDecal);
 			_stList.alpha = 0;
 			_stList.visible = false;
+			_stList.mouseChildren = false;
+			_stList.mouseEnabled = false;
+			_stList.enabled = false;
+			this.mouseEnabled = false;
 			addChild(_stList);
 			_stList.y = _backGroundSprite.height;
 			_stList.addEventListener(StUiEvent.STLIST_CLICK_CELL, clickListCellHandler);
-			
+
+			if (_stTextField && _defaultTitleShow && _stListdataList[0])
+			{
+				_stTextField.setText(_stListdataList[0].label);
+				_curObj = _stListdataList[0].value;
+			}
 			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler,false,0,true);
 			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler,false,0,true);
 
@@ -295,8 +309,19 @@ package com.hezi.uilib.components
 		 */
 		public function updateDataDraw(obj:IbListDataModel = null):void
 		{
+
 			var _obj:ListDataModel = obj as ListDataModel;
+			_stListdataList = _obj.ListDataArr;
 			_stList.updateDataDraw(_obj);
+			
+			if (_stTextField && _defaultTitleShow && _stListdataList[0])
+			{
+				_stTextField.setText(_stListdataList[0].label);
+				_curObj = _stListdataList[0].value;
+			}else
+			{
+				_stTextField.text = "";
+			}
 		}
 		
 		public function get ComboBoxStList():StList
@@ -309,20 +334,53 @@ package com.hezi.uilib.components
 		 */
 		private function clickTitleHandler(e:MouseEvent):void
 		{
+
 			var _curButton:Sprite = e.currentTarget as Sprite;
 			if (_curButton.name == "click")
 			{
 				_titleButtonDefault.visible = true;
 				_titleButtonClick.visible = false;
-				_stList.visible = false;
 				_stList.alpha = 0;
+				_stList.visible = false;
+				_stList.mouseChildren = false;
+				_stList.mouseEnabled = false;
+				_stList.enabled = false;
+				this.mouseEnabled = false;
 			}else
 			{
 				_titleButtonDefault.visible = false;
 				_titleButtonClick.visible = true;
 				_stList.visible = true;
+				_stList.mouseChildren = true;
+				_stList.mouseEnabled = true;
+				_stList.enabled = true;
+				this.mouseEnabled = true;
+				//_titleButtonDefault.mouseEnabled = true;
 				StMotionEffects.to(_stList, .25, { alpha:1} );
 			}
+			
+			if (_stList.visible) stage.addEventListener(MouseEvent.CLICK, hideStListHandler, false, 0, true);
+			
+			/*this.graphics.beginFill(0x000000);
+			this.graphics.drawRect(0, 0, this.width, this.height);
+			this.graphics.endFill();*/
+		}
+		
+		private function hideStListHandler(e:MouseEvent):void 
+		{
+				//trace(this.hitTestPoint(stage.mouseX,stage.mouseY));
+				if (!this.hitTestPoint(stage.mouseX,stage.mouseY))
+				{
+					stage.removeEventListener(MouseEvent.CLICK, hideStListHandler);
+					_titleButtonDefault.visible = true;
+					_titleButtonClick.visible = false;
+					_stList.alpha = 0;
+					_stList.visible = false;
+					_stList.mouseChildren = false;
+					_stList.mouseEnabled = false;
+					_stList.enabled = false;
+					this.mouseEnabled = false;
+				}
 		}
 		
 		/**
@@ -332,10 +390,14 @@ package com.hezi.uilib.components
 		{
 			_curObj = e.StListCellValue;
 			_stTextField.setText(e.StListCellLabel);
-			_titleButtonDefault.visible = true;
-			_titleButtonClick.visible = false;
-			_stList.visible = false;
-			_stList.alpha = 0;
+				_titleButtonDefault.visible = true;
+				_titleButtonClick.visible = false;
+				_stList.alpha = 0;
+				_stList.visible = false;
+				_stList.mouseChildren = false;
+				_stList.mouseEnabled = false;
+				_stList.enabled = false;
+				this.mouseEnabled = false;
 			var sue:StUiEvent = new StUiEvent(StUiEvent.STCOMBOBOX_CLICK_CELL);
 			sue.StListCellValue = _curObj;
 			dispatchEvent(sue);
@@ -353,7 +415,7 @@ package com.hezi.uilib.components
 				_stListdataList.length = 0;
 				_stListdataList = [];
 			}
-			
+			stage.removeEventListener(MouseEvent.CLICK, hideStListHandler);
 			_titleButtonDefault.removeEventListener(MouseEvent.CLICK, clickTitleHandler);
 			_titleButtonClick.removeEventListener(MouseEvent.CLICK, clickTitleHandler);
 			

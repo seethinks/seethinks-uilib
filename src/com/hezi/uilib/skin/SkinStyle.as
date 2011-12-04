@@ -120,6 +120,8 @@ package com.hezi.uilib.skin
 		public static const THUMBNAIL_BG:String = "Thumbnail.Bg";
 		public static const THUMBNAIL_PREVBTN:String = "Thumbnail.PrevBtn";
 		public static const THUMBNAIL_NEXTBTN:String = "Thumbnail.NextBtn";
+		public static const THUMBNAIL_PREVBTNPOSI:String = "Thumbnail.PrevBtnPosi";
+		public static const THUMBNAIL_NEXTBTNPOSI:String = "Thumbnail.NextBtnPosi";
 	
 		/**
 		 * 皮肤基类
