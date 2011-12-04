@@ -31,15 +31,17 @@ package com.hezi.uilib.components
 		private var _labelBmp:Bitmap;
 		private var _styleMap:Object;
 		private var _curStatues:String;
+		private var _canToggle:Boolean;
 		public static const TOGGLEBUTTON_STATUS_DEFAULT:String = "toggleButton_status_default";
 		public static const TOGGLEBUTTON_STATUS_SELECTED:String = "toggleButton_status_selected";
 		/**
 		 * 具体按钮类构造函数
 		 */
-		public function StToggleButton(skinObj:Object = null,x:Number=0,y:Number=0,alpha:Number=1,enabled:Boolean=true,curStatues:String=TOGGLEBUTTON_STATUS_DEFAULT) 
+		public function StToggleButton(skinObj:Object = null,x:Number=0,y:Number=0,alpha:Number=1,enabled:Boolean=true,curStatues:String=TOGGLEBUTTON_STATUS_DEFAULT,canToggle:Boolean=true) 
 		{
 			_skinObj = skinObj;
 			_curStatues = curStatues;
+			_canToggle = canToggle;
 			setLocation(x, y);
 			init();
 		}
@@ -440,20 +442,28 @@ package com.hezi.uilib.components
 			/*_defaultSpr.visible = false;
 			_pressSpr.visible = true;
 			_rollOverSpr.visible = false;*/
-			
-			if (_curStatues == TOGGLEBUTTON_STATUS_DEFAULT)
+			if (_canToggle)
 			{
-				_curStatues = TOGGLEBUTTON_STATUS_SELECTED;
-				_defaultSpr.visible = false;
-				_rollOverSpr.visible = false;
-				_pressSpr.visible = true;
+				if (_curStatues == TOGGLEBUTTON_STATUS_DEFAULT)
+				{
+					_curStatues = TOGGLEBUTTON_STATUS_SELECTED;
+					_defaultSpr.visible = false;
+					_rollOverSpr.visible = false;
+					_pressSpr.visible = true;
+				}else
+				{
+					_curStatues = TOGGLEBUTTON_STATUS_DEFAULT;
+					_defaultSpr.visible = true;
+					_pressSpr.visible = false;
+				}
+				dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 			}else
 			{
-				_curStatues = TOGGLEBUTTON_STATUS_DEFAULT;
-				_defaultSpr.visible = true;
-				_pressSpr.visible = false;
+				if (_curStatues == TOGGLEBUTTON_STATUS_SELECTED)
+				{
+					return;
+				}
 			}
-			dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 		}
 		
 		private function onOut(e:MouseEvent):void 
@@ -471,6 +481,26 @@ package com.hezi.uilib.components
 			{
 				_defaultSpr.visible = false;
 				_rollOverSpr.visible = true;
+			}
+		}
+		
+		/**
+		 * 给外部设置状态方法
+		 * @param	status  状态[TOGGLEBUTTON_STATUS_DEFAULT/TOGGLEBUTTON_STATUS_SELECTED]
+		 */
+		public function setStatus(status:String):void
+		{
+			if (status == TOGGLEBUTTON_STATUS_DEFAULT)
+			{
+				_curStatues = TOGGLEBUTTON_STATUS_DEFAULT;
+				_defaultSpr.visible = true;
+				_pressSpr.visible = false;
+			}else
+			{
+				_curStatues = TOGGLEBUTTON_STATUS_SELECTED;
+				_defaultSpr.visible = false;
+				_rollOverSpr.visible = false;
+				_pressSpr.visible = true;
 			}
 		}
 		

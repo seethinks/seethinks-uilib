@@ -32,6 +32,8 @@ package com.hezi.uilib.event
 		public static const STRADIOGROUP_RADIO_SELECTEDINDEX:String = "STRADIOGROUP_RADIO_SELECTEDINDEX";
 		private var _curRadioSelectIndex:int;
 		
+		public static const STTHUMBNAIL_CHANGEPAGE:String = "STTHUMBNAIL_CHANGEPAGE";
+		
 		/**
 		 * Create a StUiEvent.
 		 */

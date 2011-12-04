@@ -1,12 +1,17 @@
 package com.hezi.uilib.components 
 {
 	import com.hezi.uilib.Error.UiLibError;
+	import com.hezi.uilib.event.StUiEvent;
 	import com.hezi.uilib.skin.SkinStyle;
+	import com.hezi.uilib.util.ChangePage;
 	import com.hezi.uilib.util.GC;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	import flash.utils.getQualifiedSuperclassName;
+	
+	[Event (name="STTHUMBNAIL_CHANGEPAGE",type="com.hezi.uilib.event.StUiEvent")]
 	/**
 	 * 缩略图组件
 	 * @author seethinks@gmail.com
@@ -14,6 +19,7 @@ package com.hezi.uilib.components
 	public class StThumbnail extends AbstractComponentBase 
 	{
 		private var _backGroundSprite:Sprite;
+		private var _iconContainer:Sprite;
 		private var _thumbNailDataList:Array;
 		private var _preButton:StButton;
 		private var _nextButton:StButton;
@@ -24,7 +30,11 @@ package com.hezi.uilib.components
 		private var _styleMap:Object;
 		private var _cellSpaceX:Number;
 		private var _cellSpaceY:Number;
+		private var _rowSpaceX:Number;
+		private var _rowSpaceY:Number;
 		private var _curIndex:int;
+		private var _row:int;
+		private var _cell:int;
 		
 		/**
 		 * @param	dataList    植入数据
@@ -32,23 +42,25 @@ package com.hezi.uilib.components
 		 * @param	x
 		 * @param	y
 		 */
-		public function StThumbnail(dataList:Array, skinObj:Object = null, x:Number = 0, y:Number = 0, cellSpaceX:Number = 4, cellSpaceY:Number = 4, showTotalPage:int = 4 ) 
+		public function StThumbnail(skinObj:Object = null, x:Number = 0, y:Number = 0, cellSpaceX:Number = 4, cellSpaceY:Number = 4, rowSpaceX:Number = 4, rowSpaceY:Number = 4,row:int = 4,cell:int = 2 ) 
 		{
-			if (!dataList) throw new UiLibError(UiLibError.DATA_IS_NOTNULL, StThumbnail, "缩略图数据填充不能为null");
-			_thumbNailDataList = dataList;
 			_skinObj = skinObj;
 			_cellSpaceX = cellSpaceX;
 			_cellSpaceY = cellSpaceY;
-			_showTotalPage = showTotalPage;
+			_rowSpaceX = rowSpaceX;
+			_rowSpaceY = rowSpaceY;
+			_row = row;
+			_cell = cell;
+			_showTotalPage = _row * _cell;
 			setLocation(x, y);
 			init();
 		}
 		override public function init():void 
 		{
 			_backGroundSprite = new Sprite();
+			_iconContainer = new Sprite();
 			_styleMap = new Object();
 			_curPage = 1;
-			_totalPage = Math.ceil(_thumbNailDataList.length / _showTotalPage);
 			_curIndex = 0;
 
 			// *****************************************        初始化绘制        *********************
@@ -94,6 +106,66 @@ package com.hezi.uilib.components
 				}
 			}
 			
+			/**
+			 * 绘制往前翻页按钮
+			 */
+			if (_skinObj)
+			{
+				if (_skinObj[SkinStyle.THUMBNAIL_PREVBTN])
+				{
+					tempObj = _skinObj[SkinStyle.THUMBNAIL_PREVBTN];
+					_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI] = _skinObj[SkinStyle.THUMBNAIL_PREVBTNPOSI];
+					//trace("a:"+_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI]);
+				}else
+				{
+					tempObj = SkinStyle.Skin.SkinObj[SkinStyle.THUMBNAIL_PREVBTN];
+					_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI] = SkinStyle.Skin.SkinObj[SkinStyle.THUMBNAIL_PREVBTNPOSI];
+					//trace("b:"+_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI]);
+				}
+			}else
+			{
+				tempObj = SkinStyle.Skin.SkinObj[SkinStyle.THUMBNAIL_PREVBTN];
+				_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI] = SkinStyle.Skin.SkinObj[SkinStyle.THUMBNAIL_PREVBTNPOSI];
+				//trace("c:"+_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI]);
+			}
+			if (!tempObj) 
+			{
+				throw new UiLibError(UiLibError.VALUE_TYPEERROR_MSG, StThumbnail, "翻页按钮不可为空");
+			}else
+			{
+				_preButton = tempObj;
+				//trace("d:"+_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI]);
+			}
+			
+			/**
+			 * 绘制往后翻页按钮
+			 */
+			if (_skinObj)
+			{
+				if (_skinObj[SkinStyle.THUMBNAIL_NEXTBTN])
+				{
+					tempObj = _skinObj[SkinStyle.THUMBNAIL_NEXTBTN];
+					_styleMap[SkinStyle.THUMBNAIL_NEXTBTNPOSI] = _skinObj[SkinStyle.THUMBNAIL_NEXTBTNPOSI];
+				}else
+				{
+					tempObj = SkinStyle.Skin.SkinObj[SkinStyle.THUMBNAIL_NEXTBTN];
+					_styleMap[SkinStyle.THUMBNAIL_NEXTBTNPOSI] = SkinStyle.Skin.SkinObj[SkinStyle.THUMBNAIL_NEXTBTNPOSI];
+				}
+			}else
+			{
+				tempObj = SkinStyle.Skin.SkinObj[SkinStyle.THUMBNAIL_NEXTBTN];
+			}
+			if (!tempObj)
+			{
+				throw new UiLibError(UiLibError.VALUE_TYPEERROR_MSG, StThumbnail, "翻页按钮不可为空");
+			}else
+			{
+				_nextButton = tempObj;
+			}
+
+			/**
+			 * 绘制
+			 */
 			draw();
 		}
 		
@@ -127,6 +199,15 @@ package com.hezi.uilib.components
 		{
 			_backGroundSprite = _styleMap[SkinStyle.THUMBNAIL_BG] as Sprite;
 			if (_backGroundSprite) addChild(_backGroundSprite);
+			_preButton.x = _styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI].x;
+			_preButton.y = _styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI].y;
+			addChild(_preButton);
+			
+			_nextButton.x = _styleMap[SkinStyle.THUMBNAIL_NEXTBTNPOSI].x;
+			_nextButton.y = _styleMap[SkinStyle.THUMBNAIL_NEXTBTNPOSI].y;
+			addChild(_nextButton);
+			
+			addChild(_iconContainer);
 		}
 		
 		/**
@@ -141,10 +222,108 @@ package com.hezi.uilib.components
 			return _curIndex;
 		}
 		
+		/**
+		 * 绘制Icon
+		 * @param	dataList  显示对象列表
+		 * @param	offX	  X偏移值
+		 * @param	offY	  Y偏移值
+		 */
+		private var _offX:Number = 0;
+		private var _offY:Number = 0;
+		public function drawIcon(dataList:Array,offX:Number,offY:Number):void
+		{
+			if (!dataList) throw new UiLibError(UiLibError.DATA_IS_NOTNULL, StThumbnail, "缩略图数据填充不能为null");
+			_thumbNailDataList = dataList;
+			_totalPage = Math.ceil(_thumbNailDataList.length / _showTotalPage);
+
+			if (!_preButton.hasEventListener(MouseEvent.CLICK))
+			{
+				_preButton.addEventListener(MouseEvent.CLICK, prevPage);
+			}
+			if (!_nextButton.hasEventListener(MouseEvent.CLICK))
+			{
+				_nextButton.addEventListener(MouseEvent.CLICK, nextPage);
+			}
+			_offX = offX;
+			_offY = offY;
+			showPage();
+		}
+		
+		public function addIcon(spr:*):void
+		{
+			_thumbNailDataList.unshift(spr);
+			_totalPage = Math.ceil(_thumbNailDataList.length / _showTotalPage);
+			showPage();
+		}
+		
+		private function hideCellAll():void
+		{
+			for (var i:int = 0; i < _iconContainer.numChildren; i++)
+			{
+				_iconContainer.getChildAt(i).visible = false;
+			}
+		}
+		private function showPage():void
+		{
+			hideCellAll();
+			var i:int = 0;
+			var tempList:Array = ChangePage.showRight(_thumbNailDataList, _showTotalPage, _curPage);
+			var cellId:int=0;
+			for (i = 0; i < tempList.length; i++) 
+			{
+				var tempSpr:* = _thumbNailDataList[tempList[cellId]];
+				tempSpr.x =	cellId % _row * (_cellSpaceX+tempSpr.width)+_offX;
+				tempSpr.y =  Math.floor(cellId / _row) * (_cellSpaceY + tempSpr.height) + _offY;
+				tempSpr.visible = true;
+				_iconContainer.addChild(tempSpr);
+				cellId++;
+			}
+			this.dispatchEvent(new StUiEvent(StUiEvent.STTHUMBNAIL_CHANGEPAGE));
+			
+			if (_curPage<=1) {
+				_preButton.setDisable(false);
+			} else {
+				_preButton.setDisable(true);
+			}
+
+			if (_curPage>=_totalPage) {
+				_nextButton.setDisable(false);
+			} else {
+				_nextButton.setDisable(true);
+			}
+		}
+		
+		private function nextPage(e:MouseEvent):void 
+		{
+			if (_curPage<_totalPage) {
+				_curPage++;
+				showPage();
+			}
+		}
+		
+		private function prevPage(e:MouseEvent):void 
+		{
+			if (_curPage>1) {
+				_curPage--;
+				showPage();
+			}
+		}
+		
+		public function get TotalPage():int
+		{
+			return _totalPage;
+		}
+		
+		public function get CurPage():int
+		{
+			return _curPage;
+		}
+		
 		override public function destroy():void 
 		{
 			_skinObj = null;
 			_styleMap = null;	
+			_thumbNailDataList = null;
 			
 			GC.clearAllMc(_backGroundSprite);
 			if (_backGroundSprite) GC.killMySelf(_backGroundSprite);
