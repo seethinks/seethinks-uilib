@@ -61,6 +61,8 @@ package com.hezi.uilib.skin
 		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "ThumbnailBg")] private var ThumbnailBg:Class;
 		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "ThumbnailPrevBtn")] public static var ThumbnailPrevBtn:Class;
 		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "ThumbnailNextBtn")] public static var ThumbnailNextBtn:Class;
+		
+		[Embed(source = "../../../../../embed/alpha_skin/alphaSkin.swf", symbol = "TestBall")] public static var TestBall:Class;
 		public function SkinAlpha() 
 		{
 			SkinObj[SkinStyle.BUTTON_DEFAULT] = new ButtonDefault();

@@ -16,18 +16,19 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'2011-11-30'</value>
+      <value>'2011/12/4'</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>H:\mtlib\uilib\src</path-element>
-      <path-element>d:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
+      <path-element>G:\mtlib\uilib\src</path-element>
+      <path-element>E:\resouce\TweenMaxAS3</path-element>
+      <path-element>D:\Program Files\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>H:\mtlib\uilib\src\com\hezi\uilib\AlphaDemo.as</path-element>
+    <path-element>G:\mtlib\uilib\src\com\hezi\uilib\AlphaDemo.as</path-element>
   </file-specs>
-  <default-background-color>#102121</default-background-color>
+  <default-background-color>#FFFF00</default-background-color>
   <default-frame-rate>30</default-frame-rate>
   <default-size>
     <width>800</width>

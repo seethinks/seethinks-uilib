@@ -28,6 +28,7 @@ package com.hezi.uilib
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextFieldType;
+	import gs.TweenMax;
 	
 	/**
 	 * ...
@@ -162,8 +163,8 @@ package com.hezi.uilib
 			
 			_thumbnailSkin[SkinStyle.THUMBNAIL_PREVBTN] = prevBtn;
 			_thumbnailSkin[SkinStyle.THUMBNAIL_NEXTBTN] = nextBtn;
-			var _stThumbnail:StThumbnail = new StThumbnail(arr,_thumbnailSkin,150,460);
-			addChild(_stThumbnail);
+			//var _stThumbnail:StThumbnail = new StThumbnail(arr,_thumbnailSkin,150,460);
+			//addChild(_stThumbnail);
 			
 			/**
 			 * 测试ListData
@@ -178,7 +179,32 @@ package com.hezi.uilib
 			numObj.ListDataArr = testListData;
 			_getPhpData.addObserver(_combox);
 			_getPhpData.addObserver(_list);
+			
+			_sball = new SkinAlpha.TestBall;
+			_sball.x = 400;
+			_sball.y = 300;
+			addChild(_sball);
+			stage.addEventListener(MouseEvent.MOUSE_UP, testBallHandler);
 
+		}
+		var _sball:Sprite;
+		private function testBallHandler(e:MouseEvent):void 
+		{
+			var mc:Sprite = new SkinAlpha.TestBall;
+			mc.x = _sball.x;
+			mc.y = _sball.y;
+			var bx:Number = (stage.mouseX + _sball.x) / 2;
+			var by:Number;
+			if (stage.mouseY < _sball.y)
+			{
+				by = Math.abs(stage.mouseY - bx / 10);
+			}else
+			{
+				by = Math.abs(_sball.y - bx / 10);
+			}
+
+			addChild(mc);
+			TweenMax.to(mc, 1, {x:stage.mouseX, y:stage.mouseY, bezierThrough:[{x:bx, y:by}]});
 		}
 		
 		private function testListDataHandler(e:MouseEvent):void 
