@@ -576,7 +576,7 @@ package com.hezi.uilib.components
 			_styleMap = null ;
 			_labelTxt = null ;
 			_labelBmp = null;
-			GC.killMySelf(this);
+			//GC.killMySelf(this);
 			delete this;
 			GC.Gc();
 		}

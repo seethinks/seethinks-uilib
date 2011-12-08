@@ -132,24 +132,74 @@ package com.hezi.uilib.components
 			}
 			if (tempObj)
 			{
-				if (parentType.indexOf("BitmapAsset") !=-1)
+				parentType = getQualifiedSuperclassName(tempObj);
+				if (parentType.indexOf("Object") !=-1)
 				{
-					tempBmp = tempObj;
-					tempSpr = new Sprite();
-					tempSpr.addChild(new Bitmap(tempBmp.bitmapData.clone()));
-					_styleMap[SkinStyle.LIST_CELL_BG] = tempSpr;
-				}else if (parentType.indexOf("BitmapData") !=-1)
-				{
-					tempSpr = new Sprite();
-					tempSpr.addChild(new Bitmap(BitmapData(tempObj).clone()));
-					_styleMap[SkinStyle.LIST_CELL_BG] = tempSpr;
-				}else if (parentType.indexOf("SpriteAsset") !=-1)
-				{
-					_styleMap[SkinStyle.LIST_CELL_BG] = SkinStyle.duplicateDisplayObject(tempObj) as Sprite;
+					parentType = getQualifiedSuperclassName(tempObj[0]);
+					_styleMap[SkinStyle.LIST_CELL_BG] = []; 
+				
+					if (parentType.indexOf("BitmapAsset") !=-1)
+					{
+						tempBmp = tempObj[0];
+						tempSpr = new Sprite();
+						tempSpr.addChild(new Bitmap(tempBmp.bitmapData.clone()));
+						_styleMap[SkinStyle.LIST_CELL_BG].push(tempSpr);
+					}else if (parentType.indexOf("BitmapData") !=-1)
+					{
+						tempSpr = new Sprite();
+						tempSpr.addChild(new Bitmap(BitmapData(tempObj[0]).clone()));
+						_styleMap[SkinStyle.LIST_CELL_BG].push(tempSpr);
+					}else if (parentType.indexOf("SpriteAsset") !=-1)
+					{
+						_styleMap[SkinStyle.LIST_CELL_BG].push(SkinStyle.duplicateDisplayObject(tempObj[0]) as Sprite);
+					}else
+					{
+						throw new UiLibError(UiLibError.VALUE_TYPEERROR_MSG, StList, "参数应该为图类型,应继承自[BitmapAsset,BitmapData,SpriteAsset]");
+					}
+
+					//////////////// two
+					parentType = getQualifiedSuperclassName(tempObj[1]);
+					if (parentType.indexOf("BitmapAsset") !=-1)
+					{
+						tempBmp = tempObj[1];
+						tempSpr = new Sprite();
+						tempSpr.addChild(new Bitmap(tempBmp.bitmapData.clone()));
+						_styleMap[SkinStyle.LIST_CELL_BG].push(tempSpr);
+					}else if (parentType.indexOf("BitmapData") !=-1)
+					{
+						tempSpr = new Sprite();
+						tempSpr.addChild(new Bitmap(BitmapData(tempObj[1]).clone()));
+						_styleMap[SkinStyle.LIST_CELL_BG].push(tempSpr);
+					}else if (parentType.indexOf("SpriteAsset") !=-1)
+					{
+						_styleMap[SkinStyle.LIST_CELL_BG].push(SkinStyle.duplicateDisplayObject(tempObj[1]) as Sprite);
+					}else
+					{
+						throw new UiLibError(UiLibError.VALUE_TYPEERROR_MSG, StList, "参数应该为图类型,应继承自[BitmapAsset,BitmapData,SpriteAsset]");
+					}
 				}else
 				{
-					throw new UiLibError(UiLibError.VALUE_TYPEERROR_MSG, StList, "参数应该为图类型,应继承自[BitmapAsset,BitmapData,SpriteAsset]");
+					parentType = getQualifiedSuperclassName(tempObj);
+					if (parentType.indexOf("BitmapAsset") !=-1)
+					{
+						tempBmp = tempObj;
+						tempSpr = new Sprite();
+						tempSpr.addChild(new Bitmap(tempBmp.bitmapData.clone()));
+						_styleMap[SkinStyle.LIST_CELL_BG] = tempSpr;
+					}else if (parentType.indexOf("BitmapData") !=-1)
+					{
+						tempSpr = new Sprite();
+						tempSpr.addChild(new Bitmap(BitmapData(tempObj).clone()));
+						_styleMap[SkinStyle.LIST_CELL_BG] = tempSpr;
+					}else if (parentType.indexOf("SpriteAsset") !=-1)
+					{
+						_styleMap[SkinStyle.LIST_CELL_BG] = SkinStyle.duplicateDisplayObject(tempObj) as Sprite;
+					}else
+					{
+						throw new UiLibError(UiLibError.VALUE_TYPEERROR_MSG, StList, "参数应该为图类型,应继承自[BitmapAsset,BitmapData,SpriteAsset]");
+					}
 				}
+
 			}
 
 			// -----------------------------------------        初始化绘制        ---------------------------
@@ -211,33 +261,70 @@ package com.hezi.uilib.components
 			
 			var i:int = 0;
 			var l:int = _cellDataList.length;
-			
 			if (_styleMap[SkinStyle.LIST_CELL_BG])
 			{
-				for (i = 0; i < l; i++)
-				{ 
-					var cellSpr:Sprite = SkinStyle.duplicateDisplayObjectWithBitmap(_styleMap[SkinStyle.LIST_CELL_BG]) as Sprite;
-					cellSpr.y = cellSpr.height * i ;
-					_cellContainer.addChild(cellSpr);
-					_cellValueList.push(_cellDataList[i].value);
-					if (_cellDataList[i].label != "")
-					{
-						var _txt:StTextField = new StTextField(_skinObj);
-						_txt.x = _cellTxtLeftSpace;
-						_txt.y = 2;
-						_txt.width = cellSpr.width-_cellTxtLeftSpace;
-						_txt.height = cellSpr.height;
-						_txt.text = _cellDataList[i].label;
-						_txt.name = "txt";
-						_txt.enabled = false;
-						cellSpr.name = String(i);
-						cellSpr.addChild(_txt);
+				var cellSpr:Sprite;
+				var _txt:StTextField;
+				if (_styleMap[SkinStyle.LIST_CELL_BG] is Array)
+				{
+					for (i = 0; i < l; i++)
+					{ 
+						if (i % 2 == 0)
+						{
+							cellSpr = SkinStyle.duplicateDisplayObjectWithBitmap(_styleMap[SkinStyle.LIST_CELL_BG][0]) as Sprite;
+						}else
+						{
+							cellSpr = SkinStyle.duplicateDisplayObjectWithBitmap(_styleMap[SkinStyle.LIST_CELL_BG][1]) as Sprite;
+						}
+						cellSpr.y = cellSpr.height * i ;
+						_cellContainer.addChild(cellSpr);
+						_cellValueList.push(_cellDataList[i].value);
+						if (_cellDataList[i].label != "")
+						{
+							_txt = new StTextField(_skinObj);
+							_txt.x = _cellTxtLeftSpace;
+							_txt.y = 2;
+							_txt.width = cellSpr.width-_cellTxtLeftSpace;
+							_txt.height = cellSpr.height;
+							_txt.text = _cellDataList[i].label;
+							_txt.name = "txt";
+							_txt.enabled = false;
+							cellSpr.name = String(i);
+							cellSpr.addChild(_txt);
+						}
+						cellSpr.buttonMode = true;
+						cellSpr.addEventListener(MouseEvent.CLICK, clickCellHandler,false,0,true);
+						cellSpr.addEventListener(MouseEvent.MOUSE_OVER, overCellHandler,false,0,true);
+						cellSpr.addEventListener(MouseEvent.MOUSE_OUT, outCellHandler,false,0,true);
+						_cellBgList.push(cellSpr);
 					}
-					cellSpr.buttonMode = true;
-					cellSpr.addEventListener(MouseEvent.CLICK, clickCellHandler,false,0,true);
-					cellSpr.addEventListener(MouseEvent.MOUSE_OVER, overCellHandler,false,0,true);
-					cellSpr.addEventListener(MouseEvent.MOUSE_OUT, outCellHandler,false,0,true);
-					_cellBgList.push(cellSpr);
+				}else
+				{
+					for (i = 0; i < l; i++)
+					{ 
+						cellSpr = SkinStyle.duplicateDisplayObjectWithBitmap(_styleMap[SkinStyle.LIST_CELL_BG]) as Sprite;
+						cellSpr.y = cellSpr.height * i ;
+						_cellContainer.addChild(cellSpr);
+						_cellValueList.push(_cellDataList[i].value);
+						if (_cellDataList[i].label != "")
+						{
+							_txt = new StTextField(_skinObj);
+							_txt.x = _cellTxtLeftSpace;
+							_txt.y = 2;
+							_txt.width = cellSpr.width-_cellTxtLeftSpace;
+							_txt.height = cellSpr.height;
+							_txt.text = _cellDataList[i].label;
+							_txt.name = "txt";
+							_txt.enabled = false;
+							cellSpr.name = String(i);
+							cellSpr.addChild(_txt);
+						}
+						cellSpr.buttonMode = true;
+						cellSpr.addEventListener(MouseEvent.CLICK, clickCellHandler,false,0,true);
+						cellSpr.addEventListener(MouseEvent.MOUSE_OVER, overCellHandler,false,0,true);
+						cellSpr.addEventListener(MouseEvent.MOUSE_OUT, outCellHandler,false,0,true);
+						_cellBgList.push(cellSpr);
+					}
 				}
 			}
 		}
@@ -260,7 +347,7 @@ package com.hezi.uilib.components
 		
 		private function overCellHandler(e:MouseEvent):void 
 		{
-			e.currentTarget.alpha = .6;
+			//e.currentTarget.alpha = .6;
 		}
 		
 		/**
@@ -321,23 +408,38 @@ package com.hezi.uilib.components
 			addChild(_scrollBar);
 		}
 		
+		/**
+		 * 外调滚动条
+		 */
+		public function get ScrollBar():StScrollBar
+		{
+			return _scrollBar;
+		}
+		
+		/**
+		 * 滚动条复原
+		 */
+		public function setScrollBarInit():void
+		{
+			_scrollBar.setScrollBarInit();
+		}
+		
 		override public function destroy():void 
 		{
 			clearCellSpr();
 			GC.clearAllMc(_backGroundSprite);
 			
-			if (_backGroundSprite) GC.killMySelf(_backGroundSprite);
+			//if (_backGroundSprite) GC.killMySelf(_backGroundSprite);
 			if (_backGroundSprite && _backGroundSprite.parent) _backGroundSprite.parent.removeChild(_backGroundSprite);
 			_backGroundSprite = null;
 			
-			if (_cellContainer) GC.killMySelf(_cellContainer);
+			//if (_cellContainer) GC.killMySelf(_cellContainer);
 			if (_cellContainer && _cellContainer.parent) _cellContainer.parent.removeChild(_cellContainer);
 			_cellContainer = null;
 			
 			if (_scrollBar)
 			{
-				GC.killMySelf(_scrollBar);
-				_scrollBar = null;
+				if (_scrollBar && _scrollBar.parent) _scrollBar.parent.removeChild(_scrollBar);
 			}
 
 			if (_cellDataList)
@@ -350,7 +452,7 @@ package com.hezi.uilib.components
 			if (_cellValueList) _cellValueList = null;
 			_skinObj = null;
 			_styleMap = null;		
-			GC.killMySelf(this);
+			//GC.killMySelf(this);
 			delete this;
 			GC.Gc();
 		}

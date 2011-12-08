@@ -420,22 +420,22 @@ package com.hezi.uilib.components
 			_titleButtonClick.removeEventListener(MouseEvent.CLICK, clickTitleHandler);
 			
 			GC.clearAllMc(_titleButtonDefault);
-			if (_titleButtonDefault) GC.killMySelf(_titleButtonDefault);
+			//if (_titleButtonDefault) GC.killMySelf(_titleButtonDefault);
 			if (_titleButtonDefault && _titleButtonDefault.parent) _titleButtonDefault.parent.removeChild(_titleButtonDefault);
 			_titleButtonDefault = null;
 			
 			GC.clearAllMc(_titleButtonClick);
-			if (_titleButtonClick) GC.killMySelf(_titleButtonClick);
+			//if (_titleButtonClick) GC.killMySelf(_titleButtonClick);
 			if (_titleButtonClick && _titleButtonClick.parent) _titleButtonClick.parent.removeChild(_titleButtonClick);
 			_titleButtonClick = null;
 			
 			GC.clearAllMc(_backGroundSprite);
-			if (_backGroundSprite) GC.killMySelf(_backGroundSprite);
+			//if (_backGroundSprite) GC.killMySelf(_backGroundSprite);
 			if (_backGroundSprite && _backGroundSprite.parent) _backGroundSprite.parent.removeChild(_backGroundSprite);
 			_backGroundSprite = null;
 			
 			GC.clearAllMc(_titleContainer);
-			if (_titleContainer) GC.killMySelf(_titleContainer);
+			//if (_titleContainer) GC.killMySelf(_titleContainer);
 			if (_titleContainer && _titleContainer.parent) _titleContainer.parent.removeChild(_titleContainer);
 			_titleContainer = null;
 			
@@ -444,7 +444,7 @@ package com.hezi.uilib.components
 			if (_stTextField) _stTextField = null;
 			if (_stList) _stList = null;
 			
-			GC.killMySelf(this);
+			//GC.killMySelf(this);
 			delete this;
 			GC.Gc();
 		}
