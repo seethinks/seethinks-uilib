@@ -280,6 +280,7 @@ package com.hezi.uilib.components
 			}
 			this.dispatchEvent(new StUiEvent(StUiEvent.STTHUMBNAIL_CHANGEPAGE));
 			
+			//trace("_curPage:"+_curPage,_totalPage);
 			if (_curPage<=1) {
 				_preButton.setDisable(false);
 			} else {
@@ -311,6 +312,7 @@ package com.hezi.uilib.components
 		
 		public function get TotalPage():int
 		{
+			if (_totalPage == 0) _totalPage = 1;
 			return _totalPage;
 		}
 		
@@ -326,11 +328,11 @@ package com.hezi.uilib.components
 			_thumbNailDataList = null;
 			
 			GC.clearAllMc(_backGroundSprite);
-			if (_backGroundSprite) GC.killMySelf(_backGroundSprite);
+			//if (_backGroundSprite) GC.killMySelf(_backGroundSprite);
 			if (_backGroundSprite && _backGroundSprite.parent) _backGroundSprite.parent.removeChild(_backGroundSprite);
 			_backGroundSprite = null;
 			
-			GC.killMySelf(this);
+			//GC.killMySelf(this);
 			delete this;
 			GC.Gc();
 		}

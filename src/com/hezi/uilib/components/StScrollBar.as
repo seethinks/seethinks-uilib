@@ -446,7 +446,6 @@ package com.hezi.uilib.components
 		
 		private function moveTargetVerticaly(thumbY:Number):void
 		{
-			
 			_posPercent = (100 * thumbY) / (_trackHeight - _thumbSpr.height - 1);
 			if (_haveVisibleModeHeigth == -1)
 			{
@@ -544,6 +543,11 @@ package com.hezi.uilib.components
 			return _target;
 		}
 		
+		public function setScrollBarInit():void
+		{
+			moveTargetVerticaly(0);
+		}
+		
 		override public function destroy():void 
 		{ 
 			stage.removeEventListener(MouseEvent.MOUSE_UP, stopDragThumb);
@@ -554,12 +558,12 @@ package com.hezi.uilib.components
 			_target.removeEventListener(StUiEvent.STSCROLLBAR_CHANGE_POSITION, changePostionHandler);
 			_target.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
 			stage.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
-			GC.killMySelf(_trackSubSpr);
+			/*GC.killMySelf(_trackSubSpr);
 			GC.killMySelf(_thumbSubSpr);
 			GC.killMySelf(_target);
 			GC.killMySelf(_trackSpr);
 			GC.killMySelf(_thumbSpr);
-			GC.killMySelf(_scrollMask);
+			GC.killMySelf(_scrollMask);*/
 			
 			if (_trackSubSpr && _trackSubSpr.parent) _trackSubSpr.parent.removeChild(_trackSubSpr);
 			if (_thumbSubSpr && _thumbSubSpr.parent) _thumbSubSpr.parent.removeChild(_thumbSubSpr);
@@ -579,7 +583,7 @@ package com.hezi.uilib.components
 			_scrollMask = null ;
 			_maskShape = null ;
 			
-			GC.killMySelf(this);
+			//GC.killMySelf(this);
 			delete this;
 			GC.Gc();
 		}
