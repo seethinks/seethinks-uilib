@@ -7,6 +7,9 @@ package com.hezi.uilib.components
 	import com.hezi.uilib.model.ListDataModel;
 	import com.hezi.uilib.skin.SkinStyle;
 	import com.hezi.uilib.util.GC;
+	import flash.display.DisplayObject;
+	import flash.display.MovieClip;
+	import flash.geom.ColorTransform;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -261,9 +264,11 @@ package com.hezi.uilib.components
 			
 			var i:int = 0;
 			var l:int = _cellDataList.length;
+			var bitMap:Bitmap;
+			var bitMapData:BitmapData;
 			if (_styleMap[SkinStyle.LIST_CELL_BG])
 			{
-				var cellSpr:Sprite;
+				var cellSpr:MovieClip;
 				var _txt:StTextField;
 				if (_styleMap[SkinStyle.LIST_CELL_BG] is Array)
 				{
@@ -271,10 +276,10 @@ package com.hezi.uilib.components
 					{ 
 						if (i % 2 == 0)
 						{
-							cellSpr = SkinStyle.duplicateDisplayObjectWithBitmap(_styleMap[SkinStyle.LIST_CELL_BG][0]) as Sprite;
+							cellSpr = SkinStyle.duplicateDisplayObjectWithBitmap(_styleMap[SkinStyle.LIST_CELL_BG][0]) as MovieClip;
 						}else
 						{
-							cellSpr = SkinStyle.duplicateDisplayObjectWithBitmap(_styleMap[SkinStyle.LIST_CELL_BG][1]) as Sprite;
+							cellSpr = SkinStyle.duplicateDisplayObjectWithBitmap(_styleMap[SkinStyle.LIST_CELL_BG][1]) as MovieClip;
 						}
 						cellSpr.y = cellSpr.height * i ;
 						_cellContainer.addChild(cellSpr);
@@ -283,15 +288,25 @@ package com.hezi.uilib.components
 						{
 							_txt = new StTextField(_skinObj);
 							_txt.x = _cellTxtLeftSpace;
-							_txt.y = 2;
+							_txt.y = cellSpr.height * i+2 ;
 							_txt.width = cellSpr.width-_cellTxtLeftSpace;
 							_txt.height = cellSpr.height;
 							_txt.text = _cellDataList[i].label;
-							_txt.name = "txt";
-							_txt.enabled = false;
+							//_txt.name = "txt"+i;
+							//_txt.enabled = false;
+							//_txt.mouseEnabled = false;
+
+							//_cellContainer.addChild(_txt);
+							bitMapData = new BitmapData(_txt.width, _txt.height,true,0xffffff);
+							bitMapData.draw(_txt,null,null,null,null,true);
+							bitMap = new Bitmap(bitMapData);
+							bitMap.x = _cellTxtLeftSpace;
+							bitMap.y = cellSpr.height * i+2 ;
+							_cellContainer.addChild(bitMap);
 							cellSpr.name = String(i);
-							cellSpr.addChild(_txt);
+							cellSpr.label = _cellDataList[i].label;
 						}
+						setBrightness(cellSpr,.3);
 						cellSpr.buttonMode = true;
 						cellSpr.addEventListener(MouseEvent.CLICK, clickCellHandler,false,0,true);
 						cellSpr.addEventListener(MouseEvent.MOUSE_OVER, overCellHandler,false,0,true);
@@ -302,7 +317,7 @@ package com.hezi.uilib.components
 				{
 					for (i = 0; i < l; i++)
 					{ 
-						cellSpr = SkinStyle.duplicateDisplayObjectWithBitmap(_styleMap[SkinStyle.LIST_CELL_BG]) as Sprite;
+						cellSpr = SkinStyle.duplicateDisplayObjectWithBitmap(_styleMap[SkinStyle.LIST_CELL_BG]) as MovieClip;
 						cellSpr.y = cellSpr.height * i ;
 						_cellContainer.addChild(cellSpr);
 						_cellValueList.push(_cellDataList[i].value);
@@ -310,15 +325,26 @@ package com.hezi.uilib.components
 						{
 							_txt = new StTextField(_skinObj);
 							_txt.x = _cellTxtLeftSpace;
-							_txt.y = 2;
+							_txt.y = cellSpr.height * i +2;
 							_txt.width = cellSpr.width-_cellTxtLeftSpace;
 							_txt.height = cellSpr.height;
 							_txt.text = _cellDataList[i].label;
-							_txt.name = "txt";
+							/*_txt.name = "txt"+i;
 							_txt.enabled = false;
+							_txt.mouseEnabled = false;
 							cellSpr.name = String(i);
-							cellSpr.addChild(_txt);
+							_cellContainer.addChild(_txt);*/
+
+							bitMapData = new BitmapData(_txt.width, _txt.height,true,0xffffff);
+							bitMapData.draw(_txt,null,null,null,null,true);
+							bitMap = new Bitmap(bitMapData);
+							bitMap.x = _cellTxtLeftSpace;
+							bitMap.y = cellSpr.height * i+2 ;
+							_cellContainer.addChild(bitMap);
+							cellSpr.name = String(i);
+							cellSpr.label = _cellDataList[i].label;
 						}
+						setBrightness(cellSpr,.3);
 						cellSpr.buttonMode = true;
 						cellSpr.addEventListener(MouseEvent.CLICK, clickCellHandler,false,0,true);
 						cellSpr.addEventListener(MouseEvent.MOUSE_OVER, overCellHandler,false,0,true);
@@ -331,23 +357,51 @@ package com.hezi.uilib.components
 		
 		private function clickCellHandler(e:MouseEvent):void 
 		{
-			var spr:Sprite = e.currentTarget as Sprite;
-			var txt:StTextField = spr.getChildByName("txt") as StTextField;
+			var spr:MovieClip = e.currentTarget as MovieClip;
+		
 			var index:int = int(spr.name);
+			//var txt:StTextField = spr.parent.getChildByName("txt"+index) as StTextField;
 			var sue:StUiEvent = new StUiEvent(StUiEvent.STLIST_CLICK_CELL);
 			sue.StListCellValue = _cellValueList[index];
-			sue.StListCellLabel = txt.text;
+			sue.StListCellLabel = spr.label;
 			dispatchEvent(sue);
 		}
 		
 		private function outCellHandler(e:MouseEvent):void 
 		{
-			e.currentTarget.alpha = 1;
+			//e.currentTarget.alpha = 1;
+			setBrightness(e.currentTarget as DisplayObject,.3);
 		}
 		
 		private function overCellHandler(e:MouseEvent):void 
 		{
 			//e.currentTarget.alpha = .6;
+			//trace("ddddddddddddd:"+e.currentTarget.numChildren);
+			setBrightness(e.currentTarget as DisplayObject,0);
+		}
+		
+		public function setBrightness(obj:DisplayObject,value:Number):void {
+			var colorTransformer:ColorTransform = obj.transform.colorTransform;
+			var backup_filters:* = obj.filters;
+			if (value >= 0) {
+				colorTransformer.blueMultiplier = 1 - value;
+				colorTransformer.redMultiplier = 1 - value;
+				colorTransformer.greenMultiplier = 1 - value;
+				colorTransformer.redOffset = 255 * value;
+				colorTransformer.greenOffset = 255 * value;
+				colorTransformer.blueOffset = 255 * value;
+			}else {
+				value=Math.abs(value)
+				colorTransformer.blueMultiplier = 1 - value;
+				colorTransformer.redMultiplier = 1 - value;
+				colorTransformer.greenMultiplier = 1 - value;
+				colorTransformer.redOffset = 0;
+				colorTransformer.greenOffset = 0;
+				colorTransformer.blueOffset = 0;
+			}
+			
+			obj.transform.colorTransform = colorTransformer;
+			obj.filters = backup_filters;
 		}
 		
 		/**
@@ -426,7 +480,10 @@ package com.hezi.uilib.components
 		
 		override public function destroy():void 
 		{
-			clearCellSpr();
+			_skinObj = null;
+			_styleMap = null;
+			
+			/*clearCellSpr();
 			GC.clearAllMc(_backGroundSprite);
 			
 			//if (_backGroundSprite) GC.killMySelf(_backGroundSprite);
@@ -449,12 +506,10 @@ package com.hezi.uilib.components
 			}
 
 			if (_cellBgList) _cellBgList = null;
-			if (_cellValueList) _cellValueList = null;
-			_skinObj = null;
-			_styleMap = null;		
+			if (_cellValueList) _cellValueList = null;	
 			//GC.killMySelf(this);
 			delete this;
-			GC.Gc();
+			GC.Gc();*/
 		}
 	}
 

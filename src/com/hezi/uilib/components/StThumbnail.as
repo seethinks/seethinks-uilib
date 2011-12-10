@@ -8,6 +8,7 @@ package com.hezi.uilib.components
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.utils.getQualifiedSuperclassName;
 	
@@ -167,6 +168,13 @@ package com.hezi.uilib.components
 			 * 绘制
 			 */
 			draw();
+			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler,false,0,true);
+		}
+		
+		private function removedFromStageHandler(e:Event):void 
+		{
+			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+			destroy();
 		}
 		
 		override public function setLocation(x:Number, y:Number):void 
@@ -327,14 +335,14 @@ package com.hezi.uilib.components
 			_styleMap = null;	
 			_thumbNailDataList = null;
 			
-			GC.clearAllMc(_backGroundSprite);
+			/*GC.clearAllMc(_backGroundSprite);
 			//if (_backGroundSprite) GC.killMySelf(_backGroundSprite);
 			if (_backGroundSprite && _backGroundSprite.parent) _backGroundSprite.parent.removeChild(_backGroundSprite);
 			_backGroundSprite = null;
 			
 			//GC.killMySelf(this);
 			delete this;
-			GC.Gc();
+			GC.Gc();*/
 		}
 	}
 

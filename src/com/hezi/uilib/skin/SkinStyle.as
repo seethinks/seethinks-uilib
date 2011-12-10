@@ -4,6 +4,7 @@ package com.hezi.uilib.skin
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.Graphics;
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
@@ -269,7 +270,7 @@ package com.hezi.uilib.skin
 			var bitmapData:BitmapData = new BitmapData(target.width, target.height, true, 0xffffff);
 			bitmapData.draw(target);
             var bmp:Bitmap = new Bitmap(bitmapData);
-			var duplicate:Sprite = new Sprite();
+			var duplicate:MovieClip = new MovieClip();
 			duplicate.addChild(bmp);
 			return duplicate;
         }

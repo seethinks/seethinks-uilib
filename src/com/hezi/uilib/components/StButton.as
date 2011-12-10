@@ -452,6 +452,7 @@ package com.hezi.uilib.components
 			{
 				_defaultSpr.visible = true;
 				_rollOverSpr.visible = false;
+				_pressSpr.visible = false;
 			}
 		}
 		
@@ -538,33 +539,17 @@ package com.hezi.uilib.components
 		
 		override public function destroy():void 
 		{
-			/*if (_defaultTexture)
-			{
-				_defaultTexture.dispose();
-				_defaultTexture = null;
-			}
-			if (_rollOverTexture)
-			{
-				_rollOverTexture.dispose();
-				_rollOverTexture = null;
-			}
-			if (_pressTexture)
-			{
-				_pressTexture.dispose();
-				_pressTexture = null;
-			}
-			if (_disableTexture)
-			{
-				_disableTexture.dispose();
-				_disableTexture = null;
-			}*/
+			_styleMap = null ;
+			_skinObj = null ;
+			
 			removeEventListener(MouseEvent.ROLL_OVER, onOver);
 			removeEventListener(MouseEvent.ROLL_OUT, onOut);
 			removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
 			removeEventListener(MouseEvent.MOUSE_UP, onUP);
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
-			if (_defaultSpr && _defaultSpr.parent) _defaultSpr.parent.removeChild(_defaultSpr);
+			
+			/*if (_defaultSpr && _defaultSpr.parent) _defaultSpr.parent.removeChild(_defaultSpr);
 			if (_rollOverSpr && _rollOverSpr.parent) _rollOverSpr.parent.removeChild(_rollOverSpr);
 			if (_pressSpr && _pressSpr.parent) _pressSpr.parent.removeChild(_pressSpr);
 			if (_disableSpr && _disableSpr.parent) _disableSpr.parent.removeChild(_disableSpr);
@@ -573,12 +558,11 @@ package com.hezi.uilib.components
 			_pressSpr = null;
 			_disableSpr = null;
 			_label = null;
-			_styleMap = null ;
 			_labelTxt = null ;
 			_labelBmp = null;
 			//GC.killMySelf(this);
 			delete this;
-			GC.Gc();
+			GC.Gc();*/
 		}
 	}
 

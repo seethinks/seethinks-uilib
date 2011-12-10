@@ -350,7 +350,9 @@ package com.hezi.uilib.components
 		override public function destroy():void 
 		{
 			this.removeEventListener(MouseEvent.CLICK, changeStatus);
-			if (_defaultSpr && _defaultSpr.parent) _defaultSpr.parent.removeChild(_defaultSpr);
+			_styleMap = null ;
+			_skinObj = null ;
+			/*if (_defaultSpr && _defaultSpr.parent) _defaultSpr.parent.removeChild(_defaultSpr);
 			if (_selectedSpr && _selectedSpr.parent) _selectedSpr.parent.removeChild(_selectedSpr);
 			if (_defaultDisableSpr && _defaultDisableSpr.parent) _defaultDisableSpr.parent.removeChild(_defaultDisableSpr);
 			if (_selectedDisableSpr && _selectedDisableSpr.parent) _selectedDisableSpr.parent.removeChild(_selectedDisableSpr);
@@ -358,10 +360,9 @@ package com.hezi.uilib.components
 			_selectedSpr = null;
 			_defaultDisableSpr = null;
 			_selectedDisableSpr = null;
-			_styleMap = null ;
 			GC.killMySelf(this);
 			delete this;
-			GC.Gc();
+			GC.Gc();*/
 		}
 	}
 
