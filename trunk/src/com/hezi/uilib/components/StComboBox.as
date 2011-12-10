@@ -229,7 +229,6 @@ package com.hezi.uilib.components
 			}
 			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler,false,0,true);
 			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler,false,0,true);
-
 		}
 		
 		private function addedToStageHandler(e:Event):void 
@@ -359,7 +358,7 @@ package com.hezi.uilib.components
 				StMotionEffects.to(_stList, .25, { alpha:1} );
 			}
 			
-			if (_stList.visible) stage.addEventListener(MouseEvent.CLICK, hideStListHandler, false, 0, true);
+			if (_stList.visible && stage) stage.addEventListener(MouseEvent.CLICK, hideStListHandler, false, 0, true);
 			
 			/*this.graphics.beginFill(0x000000);
 			this.graphics.drawRect(0, 0, this.width, this.height);
@@ -369,17 +368,20 @@ package com.hezi.uilib.components
 		private function hideStListHandler(e:MouseEvent):void 
 		{
 				//trace(this.hitTestPoint(stage.mouseX,stage.mouseY));
-				if (!this.hitTestPoint(stage.mouseX,stage.mouseY))
+				if (this && stage)
 				{
-					stage.removeEventListener(MouseEvent.CLICK, hideStListHandler);
-					_titleButtonDefault.visible = true;
-					_titleButtonClick.visible = false;
-					_stList.alpha = 0;
-					_stList.visible = false;
-					_stList.mouseChildren = false;
-					_stList.mouseEnabled = false;
-					_stList.enabled = false;
-					this.mouseEnabled = false;
+					if (!this.hitTestPoint(stage.mouseX,stage.mouseY))
+					{
+						stage.removeEventListener(MouseEvent.CLICK, hideStListHandler);
+						_titleButtonDefault.visible = true;
+						_titleButtonClick.visible = false;
+						_stList.alpha = 0;
+						_stList.visible = false;
+						_stList.mouseChildren = false;
+						_stList.mouseEnabled = false;
+						_stList.enabled = false;
+						this.mouseEnabled = false;
+					}
 				}
 		}
 		
@@ -419,7 +421,10 @@ package com.hezi.uilib.components
 			_titleButtonDefault.removeEventListener(MouseEvent.CLICK, clickTitleHandler);
 			_titleButtonClick.removeEventListener(MouseEvent.CLICK, clickTitleHandler);
 			
-			GC.clearAllMc(_titleButtonDefault);
+			_skinObj = null;
+			_styleMap = null;
+			
+			/*GC.clearAllMc(_titleButtonDefault);
 			//if (_titleButtonDefault) GC.killMySelf(_titleButtonDefault);
 			if (_titleButtonDefault && _titleButtonDefault.parent) _titleButtonDefault.parent.removeChild(_titleButtonDefault);
 			_titleButtonDefault = null;
@@ -439,14 +444,14 @@ package com.hezi.uilib.components
 			if (_titleContainer && _titleContainer.parent) _titleContainer.parent.removeChild(_titleContainer);
 			_titleContainer = null;
 			
-			if (_skinObj) _skinObj = null;
+
 
 			if (_stTextField) _stTextField = null;
 			if (_stList) _stList = null;
 			
 			//GC.killMySelf(this);
 			delete this;
-			GC.Gc();
+			GC.Gc();*/
 		}
 	}
 

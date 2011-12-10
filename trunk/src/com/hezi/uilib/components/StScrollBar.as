@@ -552,20 +552,26 @@ package com.hezi.uilib.components
 		{ 
 			stage.removeEventListener(MouseEvent.MOUSE_UP, stopDragThumb);
 			stage.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
+			stage.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
+			
 			_thumbSpr.removeEventListener(MouseEvent.MOUSE_DOWN, startDragThumb);
 			_trackSpr.removeEventListener(MouseEvent.CLICK, clickTrackHandler);
 			this.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
 			_target.removeEventListener(StUiEvent.STSCROLLBAR_CHANGE_POSITION, changePostionHandler);
 			_target.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
-			stage.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
-			/*GC.killMySelf(_trackSubSpr);
+
+			
+			_styleMap = null ;
+			_skinObj = null ;
+			
+			/*GC.killMySelf(_trackSubSpr);  seetinks
 			GC.killMySelf(_thumbSubSpr);
 			GC.killMySelf(_target);
 			GC.killMySelf(_trackSpr);
 			GC.killMySelf(_thumbSpr);
 			GC.killMySelf(_scrollMask);*/
 			
-			if (_trackSubSpr && _trackSubSpr.parent) _trackSubSpr.parent.removeChild(_trackSubSpr);
+			/*if (_trackSubSpr && _trackSubSpr.parent) _trackSubSpr.parent.removeChild(_trackSubSpr);
 			if (_thumbSubSpr && _thumbSubSpr.parent) _thumbSubSpr.parent.removeChild(_thumbSubSpr);
 			if (_target && _target.parent) _target.parent.removeChild(_target);
 			if (_trackSpr && _trackSpr.parent) _trackSpr.parent.removeChild(_trackSpr);
@@ -579,13 +585,12 @@ package com.hezi.uilib.components
 			_target = null;
 			_trackSpr = null;
 			_thumbSpr = null;
-			_styleMap = null ;
 			_scrollMask = null ;
 			_maskShape = null ;
 			
 			//GC.killMySelf(this);
 			delete this;
-			GC.Gc();
+			GC.Gc();*/
 		}
 	}
 

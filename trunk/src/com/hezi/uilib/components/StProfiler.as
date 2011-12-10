@@ -337,17 +337,19 @@ package com.hezi.uilib.components
 				_timer.removeEventListener(TimerEvent.TIMER, timerHandler);
 				_timer = null;
 			}	
-			if (_backGround && _backGround.parent) _backGround.parent.removeChild(_backGround);
+			_styleMap = null;
+						
+			/*if (_backGround && _backGround.parent) _backGround.parent.removeChild(_backGround);
 			if (_memGraph && _memGraph.parent) _memGraph.parent.removeChild(_memGraph);
 			_fpsTxt = null;
 			_ramTxt = null;
 			_tf = null;
 			_memGraph = null;
 			_memPoints = null;
-			_styleMap = null;
+
 			GC.killMySelf(this);
 			delete this;
-			GC.Gc();
+			GC.Gc();*/
 		}
 	}
 

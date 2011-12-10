@@ -286,8 +286,8 @@ package com.hezi.uilib.components
 		
 		override public function destroy():void 
 		{
-			GC.killMySelf(_bgSpr);
-			GC.killMySelf(_tailSpr);
+			//GC.killMySelf(_bgSpr);
+			//GC.killMySelf(_tailSpr);
 			this.removeEventListener(Event.ENTER_FRAME, this.onFrame);
 			if (_time)
 			{
@@ -295,18 +295,19 @@ package com.hezi.uilib.components
 				_time.removeEventListener(TimerEvent.TIMER, liveTimeHandler);
 				_time = null;
 			}
-			if (_bgSpr && _bgSpr.parent) _bgSpr.parent.removeChild(_bgSpr);
+			_styleMap = null ;
+			_skinObj = null;
+			/*if (_bgSpr && _bgSpr.parent) _bgSpr.parent.removeChild(_bgSpr);
 			if (_tailSpr && _tailSpr.parent) _tailSpr.parent.removeChild(_tailSpr);
 			if (_tipField && _tipField.parent) _tipField.parent.removeChild(_tipField);
 			_targetPoint = null;
 			_bgSpr = null;
 			_tailSpr = null;
 			_tipField = null;
-			_styleMap = null ;
-			_skinObj = null;
+
 			GC.killMySelf(this);
 			delete this;
-			GC.Gc();
+			GC.Gc();*/
 		}
 	}
 }
