@@ -6,7 +6,7 @@
     <movie input="" />
     <movie path="bin\AlphaDemo.swf" />
     <movie fps="30" />
-    <movie width="800" />
+    <movie width="910" />
     <movie height="560" />
     <movie version="10" />
     <movie minorVersion="0" />

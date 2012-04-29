@@ -284,6 +284,8 @@ package com.hezi.uilib.components
 						cellSpr.y = cellSpr.height * i ;
 						_cellContainer.addChild(cellSpr);
 						_cellValueList.push(_cellDataList[i].value);
+						trace("_cellDataList[i].value:" + _cellDataList[i].value,_cellDataList[i].label);
+						
 						if (_cellDataList[i].label != "")
 						{
 							_txt = new StTextField(_skinObj);
@@ -413,6 +415,7 @@ package com.hezi.uilib.components
 			var _obj:ListDataModel = obj as ListDataModel;
 			//_cellDataList.length = 0;
 			_cellDataList = _obj.ListDataArr;
+			trace("_cellDataList:" + _cellDataList.length );
 			_updataDraw = true;
 			redraw();
 		}

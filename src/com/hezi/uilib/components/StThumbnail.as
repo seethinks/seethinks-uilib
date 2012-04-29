@@ -243,7 +243,7 @@ package com.hezi.uilib.components
 			if (!dataList) throw new UiLibError(UiLibError.DATA_IS_NOTNULL, StThumbnail, "缩略图数据填充不能为null");
 			_thumbNailDataList = dataList;
 			_totalPage = Math.ceil(_thumbNailDataList.length / _showTotalPage);
-
+			//trace("_totalPage_totalPage:"+_totalPage,_showTotalPage);
 			if (!_preButton.hasEventListener(MouseEvent.CLICK))
 			{
 				_preButton.addEventListener(MouseEvent.CLICK, prevPage);
@@ -257,6 +257,10 @@ package com.hezi.uilib.components
 			showPage();
 		}
 		
+		/**
+		 * 添加项
+		 * @param	spr
+		 */
 		public function addIcon(spr:*):void
 		{
 			_thumbNailDataList.unshift(spr);
@@ -264,11 +268,29 @@ package com.hezi.uilib.components
 			showPage();
 		}
 		
+		/**
+		 * 遍历获取项
+		 * @param field 属性域
+		 * @param value 值
+		 */
+		public function getIcon(field:String,value:String):*
+		{
+			for (var v:String in _thumbNailDataList)
+			{
+				//trace("_thumbNailDataList[v][field]:"+_thumbNailDataList[v][field],value);
+				if (_thumbNailDataList[v][field] == value)
+				{
+					return _thumbNailDataList[v];
+				}
+			}
+			return false;
+		}
+		
 		private function hideCellAll():void
 		{
-			for (var i:int = 0; i < _iconContainer.numChildren; i++)
+			while (_iconContainer.numChildren > 0)
 			{
-				_iconContainer.getChildAt(i).visible = false;
+				_iconContainer.removeChildAt(_iconContainer.numChildren-1);
 			}
 		}
 		private function showPage():void
@@ -276,20 +298,25 @@ package com.hezi.uilib.components
 			hideCellAll();
 			var i:int = 0;
 			var tempList:Array = ChangePage.showRight(_thumbNailDataList, _showTotalPage, _curPage);
+			//trace("tempList:"+tempList.length);
 			var cellId:int=0;
 			for (i = 0; i < tempList.length; i++) 
 			{
+				
 				var tempSpr:* = _thumbNailDataList[tempList[cellId]];
+				
 				tempSpr.x =	cellId % _row * (_cellSpaceX+tempSpr.width)+_offX;
 				tempSpr.y =  Math.floor(cellId / _row) * (_cellSpaceY + tempSpr.height) + _offY;
 				tempSpr.visible = true;
+				//trace("IIIIIIIIIIIII:"+i,"    cellId:"+cellId,"    tempSpr.x:"+tempSpr.x,"   tempSpr.y:"+tempSpr.y);
+				//trace("tempSprtempSpr:"+tempSpr,tempSpr.visible);
 				_iconContainer.addChild(tempSpr);
 				cellId++;
 			}
 			this.dispatchEvent(new StUiEvent(StUiEvent.STTHUMBNAIL_CHANGEPAGE));
-			
-			//trace("_curPage:"+_curPage,_totalPage);
-			if (_curPage<=1) {
+
+			if (_curPage <= 1)
+			{
 				_preButton.setDisable(false);
 			} else {
 				_preButton.setDisable(true);
@@ -318,15 +345,75 @@ package com.hezi.uilib.components
 			}
 		}
 		
+		/**
+		 * 获取当前页的格子列表
+		 * @return
+		 */
+		public function getCurPageCell():Array
+		{
+			var tempList:Array = ChangePage.showRight(_thumbNailDataList, _showTotalPage, _curPage);
+			var cellId:int = 0;
+			var arr:Array = [];
+			var i:int = 0;
+			for (i = 0; i < tempList.length; i++) 
+			{
+				var tempSpr:* = _thumbNailDataList[tempList[cellId]];
+				arr.push(tempSpr);
+				cellId++;
+			}
+			return arr;
+		}
+		
+		
 		public function get TotalPage():int
 		{
 			if (_totalPage == 0) _totalPage = 1;
 			return _totalPage;
 		}
 		
+		public function set TotalPage(value:int):void
+		{
+			_totalPage = value;
+		}
+		
 		public function get CurPage():int
 		{
 			return _curPage;
+		}
+		
+		public function set CurPage(value:int):void
+		{
+			 _curPage = value;
+		}
+		
+		public function get NextButton():StButton 
+		{
+			return _nextButton;
+		}
+		
+		public function set NextButton(value:StButton):void 
+		{
+			_nextButton = value;
+		}
+		
+		public function get PreButton():StButton 
+		{
+			return _preButton;
+		}
+		
+		public function set PreButton(value:StButton):void 
+		{
+			_preButton = value;
+		}
+		
+		public function get ThumbNailDataList():Array 
+		{
+			return _thumbNailDataList;
+		}
+		
+		public function set ThumbNailDataList(value:Array):void 
+		{
+			_thumbNailDataList = value;
 		}
 		
 		override public function destroy():void 

@@ -34,6 +34,8 @@ package com.hezi.uilib.event
 		
 		public static const STTHUMBNAIL_CHANGEPAGE:String = "STTHUMBNAIL_CHANGEPAGE";
 		
+		public static const STTOOLTIPSPR_SHOWED:String = "STTOOLTIPSPR_SHOWED";
+		
 		/**
 		 * Create a StUiEvent.
 		 */
