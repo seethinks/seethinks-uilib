@@ -1,6 +1,7 @@
 package com.hezi.uilib.components 
 {
 	import com.hezi.uilib.core.IbComponentObserver;
+	import com.hezi.uilib.core.IbListDataModel;
 	import com.hezi.uilib.Error.UiLibError;
 	import com.hezi.uilib.skin.SkinStyle;
 	import flash.display.Sprite;
@@ -130,9 +131,9 @@ package com.hezi.uilib.components
 			}
 		}
 			
-		public function updateDataDraw(obj:Object = null):void
+		public function updateDataDraw(obj:IbListDataModel = null):void
 		{
-			trace("obj:"+obj.testNum);
+		
 		}
 		
 		override public function destroy():void 

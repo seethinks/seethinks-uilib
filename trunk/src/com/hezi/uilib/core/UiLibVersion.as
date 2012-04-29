@@ -41,7 +41,8 @@ package com.hezi.uilib.core
 			"0.1.9 -- Radio开发进度80%，RadioGroup开发进度60%,Slider组件开发完成 -- 2011.11.20",
 			"0.2.0 -- Radio开发完成，RadioGroup开发完成 -- 2011.11.20",
 			"0.2.1 -- Thumbnail(缩略图)组件进入开发 -- 2011.11.27",
-			"0.2.2 -- Thumbnail组件开发完成 -- 2011.12.7"
+			"0.2.2 -- Thumbnail组件开发完成 -- 2011.12.7",
+			"0.2.3 -- 扩展了组件ToolTip组件，增加了ToolTipSpr组件 -- 2012.4.8"
 		];
 	}
 
