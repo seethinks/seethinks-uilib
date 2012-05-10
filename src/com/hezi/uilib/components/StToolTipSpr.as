@@ -29,7 +29,7 @@ package com.hezi.uilib.components
 		 * @param	s
 		 * @param	skinObj
 		 */
-		public function StToolTipSpr(s:Singleton,skinObj:Object=null) 
+		public function StToolTipSpr(s:Singleton=null,skinObj:Object=null) 
 		{
 			_skinObj = skinObj;
 			init();

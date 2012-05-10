@@ -15,6 +15,7 @@ package com.hezi.uilib
 	import com.hezi.uilib.components.StThumbnail;
 	import com.hezi.uilib.components.StToggleButton;
 	import com.hezi.uilib.components.StToolTip;
+	import com.hezi.uilib.components.StToolTipSpr;
 	import com.hezi.uilib.event.StUiEvent;
 	import com.hezi.uilib.model.ListDataBroadcast;
 	import com.hezi.uilib.model.ListDataModel;
@@ -22,6 +23,7 @@ package com.hezi.uilib
 	import com.hezi.uilib.skin.SkinDemoBmp;
 	import com.hezi.uilib.skin.SkinDemoSwf;
 	import com.hezi.uilib.skin.SkinStyle;
+	import com.hezi.uilib.util.GC;
 	import flash.geom.Point;
 	
 	import flash.display.Sprite;
@@ -48,13 +50,16 @@ package com.hezi.uilib
 		private var sitObj:ListDataModel;
 		private var numObj:ListDataModel;
 		
+		private var _ttipSpr:StToolTipSpr;
+		
 		public function AlphaDemo() 
 		{
 			SkinStyle.SetSkinStyle(new SkinAlpha);
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 			
-			var _button:StButton = new StButton(null,10,10);
+			var _button:StButton = new StButton(null, 10, 10);
+			_button.addEventListener(MouseEvent.CLICK, doGc);
 			addChild(_button);
 			
 			var _tbutton:StToggleButton = new StToggleButton(null, 10, 50);
@@ -142,7 +147,7 @@ package com.hezi.uilib
 			var _combox:StComboBox = new StComboBox(arr,skinComboBox,550,340,4,14,4);
 			addChild(_combox);
 			
-			var bb:StBubbleBox = new StBubbleBox(null,20,"BubbleBox is me",new Point(60,500));
+			var bb:StBubbleBox = new StBubbleBox(null,5,"BubbleBox is me",new Point(60,500));
 			addChild(bb);
 			
 			
@@ -183,9 +188,35 @@ package com.hezi.uilib
 			_sball = new SkinAlpha.TestBall;
 			_sball.x = 400;
 			_sball.y = 300;
+			_sball.addEventListener(MouseEvent.MOUSE_OVER, overBallHandler);
+			_sball.addEventListener(MouseEvent.MOUSE_OUT, outBallHandler);
 			addChild(_sball);
-			stage.addEventListener(MouseEvent.MOUSE_UP, testBallHandler);
+			//stage.addEventListener(MouseEvent.MOUSE_UP, testBallHandler);
+			
+			/*_thumbnailSkin[SkinStyle.TOOLTIP_BG] = SkinAlpha.;
+			_thumbnailSkin[SkinStyle.TOOLTIP_TAIL] = "";*/
+			_ttipSpr = new StToolTipSpr();
+			addChild(_ttipSpr);
 
+		}
+		
+		private function doGc(e:MouseEvent):void 
+		{
+			GC.Gc();
+		}
+		
+		private function outBallHandler(e:MouseEvent):void 
+		{
+			_ttipSpr.hide();
+		}
+		
+		private function overBallHandler(e:MouseEvent):void 
+		{
+			var spr:Sprite = new Sprite();
+			spr.graphics.beginFill(Math.random()*0xffffff);
+			spr.graphics.drawRect(0,0,Math.random()*100+100,Math.random()*100+100);
+			spr.graphics.endFill();
+			_ttipSpr.show(spr);
 		}
 		var _sball:Sprite;
 		private function testBallHandler(e:MouseEvent):void 
@@ -202,6 +233,8 @@ package com.hezi.uilib
 			{
 				by = Math.abs(_sball.y - bx / 10);
 			}
+			mc.addEventListener(MouseEvent.MOUSE_OVER, overBallHandler);
+			mc.addEventListener(MouseEvent.MOUSE_OUT, outBallHandler);
 
 			addChild(mc);
 			TweenMax.to(mc, 1, {x:stage.mouseX, y:stage.mouseY, bezierThrough:[{x:bx, y:by}]});
