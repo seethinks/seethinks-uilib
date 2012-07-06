@@ -361,13 +361,13 @@ package com.hezi.uilib.components
 		override public function destroy():void 
 		{
 			trace("TIP TIP destroydestroydestroydestroy");
-			GC.killMySelf(_bgSpr);
+			/*GC.killMySelf(_bgSpr);
 			GC.killMySelf(_tailSpr);
 			GC.killMySelf(_tipSpr);
 			this.removeEventListener(Event.ENTER_FRAME, this.onFrame);
 			/*if (_bgSpr && _bgSpr.parent) _bgSpr.parent.removeChild(_bgSpr);
 			if (_tailSpr && _tailSpr.parent) _tailSpr.parent.removeChild(_tailSpr);
-			if (_tipSpr && _tipSpr.parent) _tipSpr.parent.removeChild(_tipSpr);*/
+			if (_tipSpr && _tipSpr.parent) _tipSpr.parent.removeChild(_tipSpr);
 			_bgSpr = null;
 			_tailSpr = null;
 			_tipSpr = null;
@@ -376,7 +376,7 @@ package com.hezi.uilib.components
 			_instance = null;
 			GC.killMySelf(this);
 			delete this;
-			GC.Gc();
+			GC.Gc();*/
 		}
 	}
 }
