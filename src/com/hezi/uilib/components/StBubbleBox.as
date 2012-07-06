@@ -4,7 +4,6 @@ package com.hezi.uilib.components
 	import com.hezi.uilib.skin.SkinStyle;
 	import com.hezi.uilib.util.GC;
 	import com.hezi.uilib.util.StMotionEffects;
-	import flash.system.System;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;

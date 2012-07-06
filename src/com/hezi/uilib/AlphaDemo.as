@@ -24,13 +24,13 @@ package com.hezi.uilib
 	import com.hezi.uilib.skin.SkinDemoSwf;
 	import com.hezi.uilib.skin.SkinStyle;
 	import com.hezi.uilib.util.GC;
+	import com.hezi.uilib.util.StMotionEffects;
 	import flash.geom.Point;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextFieldType;
-	import gs.TweenMax;
 	
 	/**
 	 * ...
@@ -237,7 +237,7 @@ package com.hezi.uilib
 			mc.addEventListener(MouseEvent.MOUSE_OUT, outBallHandler);
 
 			addChild(mc);
-			TweenMax.to(mc, 1, {x:stage.mouseX, y:stage.mouseY, bezierThrough:[{x:bx, y:by}]});
+			StMotionEffects.to(mc, 1, {x:stage.mouseX, y:stage.mouseY, bezierThrough:[{x:bx, y:by}]});
 		}
 		
 		private function testListDataHandler(e:MouseEvent):void 
