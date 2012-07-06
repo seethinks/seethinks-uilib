@@ -124,7 +124,6 @@
 			var child : DisplayObject;	
 			if(_con is DisplayObjectContainer) 
 			{
-			 
 				var con : DisplayObjectContainer = _con as DisplayObjectContainer;
 				var i : int = con.numChildren;
 

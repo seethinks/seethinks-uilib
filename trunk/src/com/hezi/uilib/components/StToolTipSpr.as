@@ -29,7 +29,7 @@ package com.hezi.uilib.components
 		 * @param	s
 		 * @param	skinObj
 		 */
-		public function StToolTipSpr(s:Singleton=null,skinObj:Object=null) 
+		public function StToolTipSpr(s:Singleton,skinObj:Object=null) 
 		{
 			_skinObj = skinObj;
 			init();
@@ -81,7 +81,7 @@ package com.hezi.uilib.components
 					tempSpr = new Sprite();
 					tempSpr.addChild(new Bitmap(BitmapData(tempObj).clone()));
 					_styleMap[SkinStyle.TOOLTIP_BG] = tempSpr;
-				}else if (parentType.indexOf("SpriteAsset") !=-1)
+				}else if (parentType.indexOf("SpriteAsset") != -1 || parentType.indexOf("Sprite") != -1)
 				{
 					_styleMap[SkinStyle.TOOLTIP_BG] = SkinStyle.duplicateDisplayObject(tempObj) as Sprite;
 				}else
@@ -119,7 +119,7 @@ package com.hezi.uilib.components
 					tempSpr = new Sprite();
 					tempSpr.addChild(new Bitmap(BitmapData(tempObj).clone()));
 					_styleMap[SkinStyle.TOOLTIP_TAIL] = tempSpr;
-				}else if (parentType.indexOf("SpriteAsset") !=-1)
+				}else if (parentType.indexOf("SpriteAsset") != -1 || parentType.indexOf("Sprite") != -1)
 				{
 					_styleMap[SkinStyle.TOOLTIP_TAIL] = SkinStyle.duplicateDisplayObject(tempObj) as Sprite;
 				}else
@@ -288,6 +288,12 @@ package com.hezi.uilib.components
 			{
 				this._tipSpr = spr;
 			}*/
+			//trace("_tipSpr_tipSpr_tipSpr 111 :" + _tipSpr, spr);
+			if (!_tipSpr)
+			{
+				_tipSpr = new Sprite();
+			}
+			//trace("_tipSpr_tipSpr_tipSpr 222 :" + _tipSpr, spr);
 			_tipSpr.addChild(spr);
 			
 			//if (this._tipSpr) this.addChild(this._tipSpr);	
@@ -335,9 +341,12 @@ package com.hezi.uilib.components
 			//trace("this._tipSpr.parent 11:", this._tipSpr.parent,this._tipSpr.parent.name);
 			//trace("this._tipSpr 11111 1111 :",_tipSpr.numChildren);
 			//GC.clearAllMc(_tipSpr);
-			while(_tipSpr.numChildren>0)
+			if (_tipSpr)
 			{
-				_tipSpr.removeChildAt(_tipSpr.numChildren-1);
+				while(_tipSpr.numChildren>0)
+				{
+					_tipSpr.removeChildAt(_tipSpr.numChildren-1);
+				}
 			}
 			//trace("this._tipSpr 22222 2222:",_tipSpr.numChildren);
 			this.removeEventListener(Event.ENTER_FRAME, this.onFrame);
@@ -351,6 +360,7 @@ package com.hezi.uilib.components
 		
 		override public function destroy():void 
 		{
+			trace("TIP TIP destroydestroydestroydestroy");
 			GC.killMySelf(_bgSpr);
 			GC.killMySelf(_tailSpr);
 			GC.killMySelf(_tipSpr);
