@@ -360,7 +360,6 @@ package com.hezi.uilib.components
 		
 		override public function destroy():void 
 		{
-			trace("TIP TIP destroydestroydestroydestroy");
 			GC.killMySelf(_bgSpr);
 			GC.killMySelf(_tailSpr);
 			GC.killMySelf(_tipSpr);
