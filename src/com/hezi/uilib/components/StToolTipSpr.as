@@ -22,24 +22,24 @@ package com.hezi.uilib.components
 		private var _bgSpr:Sprite;
 		private var _tailSpr:Sprite;
 		private var _tipSpr:Sprite;
-		private static var _instance:StToolTipSpr;
+		//private static var _instance:StToolTipSpr;
 		
 		/**
 		 * 单例类 （备注，背景皮肤建议用swf嵌入矢量九宫格）
 		 * @param	s
 		 * @param	skinObj
 		 */
-		public function StToolTipSpr(s:Singleton,skinObj:Object=null) 
+		public function StToolTipSpr(skinObj:Object=null) 
 		{
 			_skinObj = skinObj;
 			init();
 		}
 		
-		public static function getInstance(skinObj:Object=null):StToolTipSpr
+		/*public static function getInstance(skinObj:Object=null):StToolTipSpr
 		{
 			if (!StToolTipSpr._instance) StToolTipSpr._instance = new StToolTipSpr(new Singleton,skinObj);
 			return StToolTipSpr._instance;
-		}
+		}*/
 
 		override public function init():void 
 		{
@@ -361,23 +361,23 @@ package com.hezi.uilib.components
 		override public function destroy():void 
 		{
 			trace("TIP TIP destroydestroydestroydestroy");
-			/*GC.killMySelf(_bgSpr);
+			GC.killMySelf(_bgSpr);
 			GC.killMySelf(_tailSpr);
 			GC.killMySelf(_tipSpr);
 			this.removeEventListener(Event.ENTER_FRAME, this.onFrame);
 			/*if (_bgSpr && _bgSpr.parent) _bgSpr.parent.removeChild(_bgSpr);
 			if (_tailSpr && _tailSpr.parent) _tailSpr.parent.removeChild(_tailSpr);
-			if (_tipSpr && _tipSpr.parent) _tipSpr.parent.removeChild(_tipSpr);
+			if (_tipSpr && _tipSpr.parent) _tipSpr.parent.removeChild(_tipSpr);*/
 			_bgSpr = null;
 			_tailSpr = null;
 			_tipSpr = null;
 			_styleMap = null ;
 			_skinObj = null;
-			_instance = null;
+			//_instance = null;
 			GC.killMySelf(this);
 			delete this;
-			GC.Gc();*/
+			GC.Gc();
 		}
 	}
 }
-internal class Singleton{}
+//internal class Singleton{}
