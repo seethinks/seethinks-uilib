@@ -116,26 +116,22 @@ package com.hezi.uilib.components
 				{
 					tempObj = _skinObj[SkinStyle.THUMBNAIL_PREVBTN];
 					_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI] = _skinObj[SkinStyle.THUMBNAIL_PREVBTNPOSI];
-					//trace("a:"+_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI]);
 				}else
 				{
 					tempObj = SkinStyle.Skin.SkinObj[SkinStyle.THUMBNAIL_PREVBTN];
 					_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI] = SkinStyle.Skin.SkinObj[SkinStyle.THUMBNAIL_PREVBTNPOSI];
-					//trace("b:"+_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI]);
 				}
 			}else
 			{
 				tempObj = SkinStyle.Skin.SkinObj[SkinStyle.THUMBNAIL_PREVBTN];
 				_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI] = SkinStyle.Skin.SkinObj[SkinStyle.THUMBNAIL_PREVBTNPOSI];
-				//trace("c:"+_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI]);
 			}
 			if (!tempObj) 
 			{
-				throw new UiLibError(UiLibError.VALUE_TYPEERROR_MSG, StThumbnail, "翻页按钮不可为空");
+				//throw new UiLibError(UiLibError.VALUE_TYPEERROR_MSG, StThumbnail, "翻页按钮不可为空");
 			}else
 			{
 				_preButton = tempObj;
-				//trace("d:"+_styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI]);
 			}
 			
 			/**
@@ -158,7 +154,7 @@ package com.hezi.uilib.components
 			}
 			if (!tempObj)
 			{
-				throw new UiLibError(UiLibError.VALUE_TYPEERROR_MSG, StThumbnail, "翻页按钮不可为空");
+				//throw new UiLibError(UiLibError.VALUE_TYPEERROR_MSG, StThumbnail, "翻页按钮不可为空");
 			}else
 			{
 				_nextButton = tempObj;
@@ -212,9 +208,9 @@ package com.hezi.uilib.components
 			if (_preButton) _preButton.y = _styleMap[SkinStyle.THUMBNAIL_PREVBTNPOSI].y;
 			if (_preButton) addChild(_preButton);
 
-			_nextButton.x = _styleMap[SkinStyle.THUMBNAIL_NEXTBTNPOSI].x;
-			_nextButton.y = _styleMap[SkinStyle.THUMBNAIL_NEXTBTNPOSI].y;
-			addChild(_nextButton);
+			if (_nextButton) _nextButton.x = _styleMap[SkinStyle.THUMBNAIL_NEXTBTNPOSI].x;
+			if (_nextButton) _nextButton.y = _styleMap[SkinStyle.THUMBNAIL_NEXTBTNPOSI].y;
+			if (_nextButton) addChild(_nextButton);
 			
 			addChild(_iconContainer);
 		}
@@ -245,13 +241,19 @@ package com.hezi.uilib.components
 			_thumbNailDataList = dataList;
 			_totalPage = Math.ceil(_thumbNailDataList.length / _showTotalPage);
 			//trace("_totalPage_totalPage:"+_totalPage,_showTotalPage);
-			if (!_preButton.hasEventListener(MouseEvent.CLICK))
+			if (_preButton)
 			{
-				_preButton.addEventListener(MouseEvent.CLICK, prevPage);
+				if (!_preButton.hasEventListener(MouseEvent.CLICK))
+				{
+					_preButton.addEventListener(MouseEvent.CLICK, prevPage);
+				}
 			}
-			if (!_nextButton.hasEventListener(MouseEvent.CLICK))
+			if (_nextButton)
 			{
-				_nextButton.addEventListener(MouseEvent.CLICK, nextPage);
+				if (!_nextButton.hasEventListener(MouseEvent.CLICK))
+				{
+					_nextButton.addEventListener(MouseEvent.CLICK, nextPage);
+				}
 			}
 			_offX = offX;
 			_offY = offY;
@@ -318,15 +320,15 @@ package com.hezi.uilib.components
 
 			if (_curPage <= 1)
 			{
-				_preButton.setDisable(false);
+				if (_preButton) _preButton.setDisable(false);
 			} else {
-				_preButton.setDisable(true);
+				if (_preButton) _preButton.setDisable(true);
 			}
 
 			if (_curPage>=_totalPage) {
-				_nextButton.setDisable(false);
+				if (_nextButton) _nextButton.setDisable(false);
 			} else {
-				_nextButton.setDisable(true);
+				if (_nextButton) _nextButton.setDisable(true);
 			}
 		}
 		
