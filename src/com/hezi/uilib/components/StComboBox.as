@@ -423,7 +423,7 @@ package com.hezi.uilib.components
 			
 			_skinObj = null;
 			_styleMap = null;
-			
+			GC.killMySelf(this);
 			/*GC.clearAllMc(_titleButtonDefault);
 			//if (_titleButtonDefault) GC.killMySelf(_titleButtonDefault);
 			if (_titleButtonDefault && _titleButtonDefault.parent) _titleButtonDefault.parent.removeChild(_titleButtonDefault);

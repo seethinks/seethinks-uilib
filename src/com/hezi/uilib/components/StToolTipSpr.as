@@ -360,9 +360,6 @@ package com.hezi.uilib.components
 		
 		override public function destroy():void 
 		{
-			GC.killMySelf(_bgSpr);
-			GC.killMySelf(_tailSpr);
-			GC.killMySelf(_tipSpr);
 			this.removeEventListener(Event.ENTER_FRAME, this.onFrame);
 			/*if (_bgSpr && _bgSpr.parent) _bgSpr.parent.removeChild(_bgSpr);
 			if (_tailSpr && _tailSpr.parent) _tailSpr.parent.removeChild(_tailSpr);
@@ -374,8 +371,7 @@ package com.hezi.uilib.components
 			_skinObj = null;
 			//_instance = null;
 			GC.killMySelf(this);
-			delete this;
-			GC.Gc();
+
 		}
 	}
 }

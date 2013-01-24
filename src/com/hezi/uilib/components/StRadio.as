@@ -382,8 +382,6 @@ package com.hezi.uilib.components
 			_selectedDisableSpr = null;
 			_styleMap = null ;
 			GC.killMySelf(this);
-			delete this;
-			GC.Gc();
 		}
 	}
 

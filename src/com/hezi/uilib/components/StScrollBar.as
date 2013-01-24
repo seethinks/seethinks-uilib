@@ -563,7 +563,7 @@ package com.hezi.uilib.components
 			
 			_styleMap = null ;
 			_skinObj = null ;
-			
+			GC.killMySelf(this);
 			/*GC.killMySelf(_trackSubSpr);  seetinks
 			GC.killMySelf(_thumbSubSpr);
 			GC.killMySelf(_target);

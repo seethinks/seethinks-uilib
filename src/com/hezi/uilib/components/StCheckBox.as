@@ -352,6 +352,7 @@ package com.hezi.uilib.components
 			this.removeEventListener(MouseEvent.CLICK, changeStatus);
 			_styleMap = null ;
 			_skinObj = null ;
+			GC.killMySelf(this);
 			/*if (_defaultSpr && _defaultSpr.parent) _defaultSpr.parent.removeChild(_defaultSpr);
 			if (_selectedSpr && _selectedSpr.parent) _selectedSpr.parent.removeChild(_selectedSpr);
 			if (_defaultDisableSpr && _defaultDisableSpr.parent) _defaultDisableSpr.parent.removeChild(_defaultDisableSpr);

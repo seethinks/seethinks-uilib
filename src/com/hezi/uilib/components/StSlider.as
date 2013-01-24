@@ -403,8 +403,6 @@ package com.hezi.uilib.components
 			_styleMap = null ;
 			_valueEvent = null;
 			GC.killMySelf(this);
-			delete this;
-			GC.Gc();
 		}
 	}
 

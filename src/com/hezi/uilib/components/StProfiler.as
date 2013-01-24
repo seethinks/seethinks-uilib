@@ -338,7 +338,7 @@ package com.hezi.uilib.components
 				_timer = null;
 			}	
 			_styleMap = null;
-						
+			GC.killMySelf(this);
 			/*if (_backGround && _backGround.parent) _backGround.parent.removeChild(_backGround);
 			if (_memGraph && _memGraph.parent) _memGraph.parent.removeChild(_memGraph);
 			_fpsTxt = null;

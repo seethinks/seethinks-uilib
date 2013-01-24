@@ -485,7 +485,7 @@ package com.hezi.uilib.components
 		{
 			_skinObj = null;
 			_styleMap = null;
-			
+			GC.killMySelf(this);
 			/*clearCellSpr();
 			GC.clearAllMc(_backGroundSprite);
 			
