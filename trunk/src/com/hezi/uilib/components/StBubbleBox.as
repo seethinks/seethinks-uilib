@@ -9,10 +9,10 @@ package com.hezi.uilib.components
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.geom.Point;
-	import flash.utils.getQualifiedSuperclassName;
-	import flash.utils.Timer;
 	import flash.events.TimerEvent;
+	import flash.geom.Point;
+	import flash.utils.Timer;
+	import flash.utils.getQualifiedSuperclassName;
 	
 	/**
 	 * ToolTip组件
@@ -29,18 +29,24 @@ package com.hezi.uilib.components
 		private var _msg:String;
 		private var _liveTime:int;
 		private var _time:Timer;
-		
+		private var _tw:int;
+		private var _th:int;
+		private var _showImg:Boolean;	
+	
 		/**
 		 * 单例类 （备注，背景皮肤建议用swf嵌入矢量九宫格）
 		 * @param	s
 		 * @param	skinObj
 		 */
-		public function StBubbleBox(skinObj:Object=null,liveTime:int=5,msg:String="",targetPoint:Point=null) 
+		public function StBubbleBox(skinObj:Object=null,liveTime:int=5,msg:String="",targetPoint:Point=null,tw:int=100,th:int=100,showImg:Boolean=false) 
 		{
 			_skinObj = skinObj;
 			_liveTime = liveTime;
 			_msg = msg;
 			_targetPoint = targetPoint;
+			_tw = tw;
+			_th = th;
+			_showImg = showImg;
 			//setLocation(x, y);
 			init();
 		}
@@ -185,7 +191,8 @@ package com.hezi.uilib.components
 		override public function draw():void 
 		{
 			this.alpha = 0;
-			this._tipField = new StTextField(_skinObj);
+			this._tipField = new StTextField(_skinObj,0,0,_tw,_th,_showImg);
+			this._tipField.txtMode = "html";
 			this._bgSpr = _styleMap[SkinStyle.BUBBLEBOX_BG] as Sprite;
 			this._tailSpr = _styleMap[SkinStyle.BUBBLEBOX_TAIL] as Sprite;
 			
@@ -287,7 +294,7 @@ package com.hezi.uilib.components
 		override public function destroy():void 
 		{
 			//GC.killMySelf(_bgSpr);
-			//GC.killMySelf(_tailSpr);
+			GC.killMySelf(this);
 			this.removeEventListener(Event.ENTER_FRAME, this.onFrame);
 			if (_time)
 			{

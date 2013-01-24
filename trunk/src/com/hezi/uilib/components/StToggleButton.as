@@ -587,7 +587,7 @@ package com.hezi.uilib.components
 			removeEventListener(MouseEvent.MOUSE_UP, onUP);
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
-			
+			GC.killMySelf(this);
 			/*if (_defaultSpr && _defaultSpr.parent) _defaultSpr.parent.removeChild(_defaultSpr);
 			if (_rollOverSpr && _rollOverSpr.parent) _rollOverSpr.parent.removeChild(_rollOverSpr);
 			if (_pressSpr && _pressSpr.parent) _pressSpr.parent.removeChild(_pressSpr);

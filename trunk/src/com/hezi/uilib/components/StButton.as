@@ -539,6 +539,7 @@ package com.hezi.uilib.components
 		
 		override public function destroy():void 
 		{
+			//GC.killMySelf(this);
 			_styleMap = null ;
 			_skinObj = null ;
 			

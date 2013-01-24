@@ -424,7 +424,7 @@ package com.hezi.uilib.components
 			_skinObj = null;
 			_styleMap = null;	
 			_thumbNailDataList = null;
-			
+			//GC.killMySelf(this);
 			/*GC.clearAllMc(_backGroundSprite);
 			//if (_backGroundSprite) GC.killMySelf(_backGroundSprite);
 			if (_backGroundSprite && _backGroundSprite.parent) _backGroundSprite.parent.removeChild(_backGroundSprite);

@@ -149,7 +149,7 @@
 					{
 						URLLoader(con).close();
 					}else
-					{
+					{							
 						con.removeChild(child);
 						child = null;
 					}

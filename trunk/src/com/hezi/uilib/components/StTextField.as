@@ -25,21 +25,40 @@ package com.hezi.uilib.components
 		private var _txtMode:String;
 		private var _txt:TextField;
 		private var _txtFormat:TextFormat;
+		private var _tw:int;
+		private var _th:int;
+		private var _showImg:Boolean;	
 		
-		public function StTextField(skinObj:Object=null,x:Number = 0, y:Number = 0) 
+		public function StTextField(skinObj:Object=null,x:Number = 0, y:Number = 0,tw:int=100,th:int=100,showImg:Boolean=false) 
 		{
 			_skinObj = skinObj;
+			_tw = tw;
+			_th = th;
+			_showImg = showImg;
 			setLocation(x, y);
 			init();
 		}
 		
+		public function get txtMode():String
+		{
+			return _txtMode;
+		}
+
+		public function set txtMode(value:String):void
+		{
+			_txtMode = value;
+		}
+
 		override public function init():void 
 		{
 			_styleMap = new Object();
-			_txtMode = "text";
+			_txtMode = "html";
 			_backGroundSprite = new Sprite();
 			_txtFormat = new TextFormat();
 			_txt = new TextField();
+			_txt.wordWrap=true;
+			_txt.multiline=true;
+			_txt.type = TextFieldType.DYNAMIC;
 			addChild(_txt);
 			//_txt.mouseEnabled = false;
 			//_backGroundSprite.mouseChildren = false;
@@ -413,11 +432,20 @@ package com.hezi.uilib.components
 			{
 				_txt.htmlText = str;
 			}
-			//trace("_txt.textWidth:" + _txt.textWidth, "_txt.textHeight:" + _txt.textHeight);
+
+			if (_showImg)
+			{
+				_txt.width = _tw;
+				_txt.height= _th;
+				_txt.htmlText= "<img src='Class_faceMc3'></img>"
+			}
+			trace("_txt.width:" + _txt.width, "_txt.height:" + _txt.height);
+			trace("_txt.textWidth:" + _txt.textWidth, "_txt.textHeight:" + _txt.textHeight);
+
 			//_txt.width = _txt.textWidth+4;
 			//_txt.height = _txt.textHeight+4;
 			_txt.setTextFormat(_txtFormat);
-			//trace("_txt.textWidth:" + _txt.width, "_txt.textHeight:" + _txt.height);
+			
 
 		}
 		
@@ -437,8 +465,6 @@ package com.hezi.uilib.components
 			_txt = null;
 			_txtFormat = null;
 			GC.killMySelf(this);
-			delete this;
-			GC.Gc();
 		}
 	}
 

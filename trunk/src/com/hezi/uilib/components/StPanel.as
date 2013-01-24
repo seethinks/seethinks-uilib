@@ -243,7 +243,7 @@ package com.hezi.uilib.components
 				_disableTexture = null;
 			}
 			_styleMap = null ;
-			
+			GC.killMySelf(this);
 			/*if (_backGroundShape && _backGroundShape.parent) _backGroundShape.parent.removeChild(_backGroundShape);
 			if (_disableShape && _disableShape.parent) _disableShape.parent.removeChild(_disableShape);
 			_backGroundShape = null;
