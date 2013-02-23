@@ -439,8 +439,8 @@ package com.hezi.uilib.components
 				_txt.height= _th;
 				_txt.htmlText= "<img src='Class_faceMc3'></img>"
 			}
-			trace("_txt.width:" + _txt.width, "_txt.height:" + _txt.height);
-			trace("_txt.textWidth:" + _txt.textWidth, "_txt.textHeight:" + _txt.textHeight);
+			//trace("_txt.width:" + _txt.width, "_txt.height:" + _txt.height);
+			//trace("_txt.textWidth:" + _txt.textWidth, "_txt.textHeight:" + _txt.textHeight);
 
 			//_txt.width = _txt.textWidth+4;
 			//_txt.height = _txt.textHeight+4;
