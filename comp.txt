@@ -1,2 +1,0 @@
-D:\Program Files\Adobe\Adobe Flash Builder 4.5\sdks\4.5.0\bin>compc -source-path
- k:\mtlib\uilib\src -output k:\uilib.swc -include-sources k:\mtlib\uilib\src -compiler-library-path E:\resouce\TweenMaxAS3
