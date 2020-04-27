@@ -77,8 +77,8 @@ class _LoadDataListWidgetState<T extends ViewStateRefreshListModel>
               header: widget.refresherHeader != null
                   ? widget.refresherHeader
                   : RefresherHeader(),
-              footer: widget.refresherHeader != null
-                  ? widget.refresherHeader
+              footer: widget.refresherFooter != null
+                  ? widget.refresherFooter
                   : RefresherHeader(),
               onRefresh: model.refresh,
               onLoading: model.loadMore,

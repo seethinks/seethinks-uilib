@@ -42,7 +42,7 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel<T> {
         print("data.length < pageSize${data.length < pageSize}");
         // 小于分页的数量,禁止上拉加载更多
         if (data.length < pageSize) {
-          refreshController.loadNoData();
+          if (_currentPageNum != pageNumFirst) refreshController.loadNoData();
         } else {
           //防止上次上拉加载更多失败,需要重置状态
           refreshController.loadComplete();
