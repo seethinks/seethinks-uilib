@@ -13,6 +13,8 @@ class InputNumber extends StatefulWidget {
   //最大值
   final double max;
 
+  int maxLength;
+
   // 步长
   final dynamic step;
 
@@ -28,6 +30,7 @@ class InputNumber extends StatefulWidget {
   InputNumber({@required this.controller,
     this.min = 0,
     this.max = 100,
+    this.maxLength=100,
     this.placeholder,
     this.defaultValue,
     this.onFocus,
@@ -93,6 +96,7 @@ class _InlineInputState extends State<InputNumber> {
                 clearable: false,
                 rightSpacing: 0,
                 decimal: 8,
+                maxLength: widget.maxLength,
                 type: BeeInputType.NUM_DOUBLE,
                 controller: widget.controller,
                 textAlign: TextAlign.center,
