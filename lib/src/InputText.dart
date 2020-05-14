@@ -126,7 +126,7 @@ class BeeInput extends StatefulWidget {
     this.onChange,
     this.onFocus,
     this.onBlur,
-    this.hintStyle = TextStyle(fontSize: 14),
+    this.hintStyle = const TextStyle(fontSize: 14),
   })
       : this.label = toTextWidget(label, 'label'),
         super(key: key);
