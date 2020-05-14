@@ -1,4 +1,7 @@
-image_cropper=/Users/stylehuan/.pub-cache/hosted/pub.flutter-io.cn/image_cropper-1.1.0/
-image_picker=/Users/stylehuan/.pub-cache/hosted/pub.flutter-io.cn/image_picker-0.6.1+11/
-path_provider=/Users/stylehuan/.pub-cache/hosted/pub.flutter-io.cn/path_provider-1.4.4/
-sqflite=/Users/stylehuan/.pub-cache/hosted/pub.flutter-io.cn/sqflite-1.1.8/
+# This is a generated file; do not edit or check into version control.
+flutter_plugin_android_lifecycle=D:\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\flutter_plugin_android_lifecycle-1.0.7\\
+image_cropper=D:\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\image_cropper-1.1.0\\
+image_picker=D:\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\image_picker-0.6.6+1\\
+path_provider=D:\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\path_provider-1.6.8\\
+path_provider_macos=D:\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\path_provider_macos-0.0.4+2\\
+sqflite=D:\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\sqflite-1.3.0+1\\
